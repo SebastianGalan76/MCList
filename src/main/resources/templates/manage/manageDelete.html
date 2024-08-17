@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Usuń serwer | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/manage/manageDelete.css">
+    <link rel="stylesheet" href="/css/manage/manageServer.css">
+    <link rel="stylesheet" href="/css/fragment/manageMenu.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="main-container">
+        <aside>
+            <div th:replace="~{fragment/manageMenu :: menuFragment}"></div>
+            <div class="divider-line-vertical">
+            </div>
+        </aside>
+
+        <section id="container">
+            <div id="delete-container" class="center">
+                <h1 class="header">
+                    Usuwanie serwera
+                </h1>
+
+                <div id="form-container">
+                    <span class="center">Jeśli chcesz usunąć serwer, musisz wpisać <span
+                            th:text="${server.name.name}"></span> aby potwierdzić.<br></span>
+                    <span class="error">Operacji nie można cofnąć.</span>
+
+                    <div class="input-area">
+                        <input id="input-server-ip" type="text" placeholder="IP Serwera" maxlength="256">
+                        <div class="icon">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="error center" id="response-error"></span>
+                <div id="delete-server-button" class="center action-button margin-50-150">
+                    Usuń serwer
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+<script type="module" th:inline="javascript">
+    const serverId = /*[[${server.id}]]*/ 0;
+    const serverIp = /*[[${server.name.name}]]*/ null;
+
+    document.getElementById("delete-server-button").addEventListener("click", deleteServer);
+
+    const confirmInput = document.getElementById('input-server-ip');
+    const responseError = document.getElementById('response-error');
+
+    async function deleteServer() {
+        if (confirmInput.value != serverIp) {
+            responseError.innerHTML = "Musisz wpisać " + serverIp + ", aby usunąć serwer!";
+            return;
+        }
+        responseError.innerHTML = null;
+
+        try {
+            const response = await fetch('/server/' + serverId, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+
+                if (responseJson.status != "OK") {
+                    responseError.innerHTML = responseJson.message;
+                }
+                else {
+                    window.location.href = '/';
+                }
+            }
+        } catch (error) {
+            responseError.innerHTML = error.message;
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,22 @@
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+    color: #fff8ef;
+    h1{
+        font-size: 4em;
+    }
+
+    img{
+        width: 30%;
+    }
+
+    a{
+        margin-top: 10px;
+        font-size: 1.2em;
+        color: #e2a258;
+    }
+}

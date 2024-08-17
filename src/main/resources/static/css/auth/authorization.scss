@@ -1,0 +1,179 @@
+@import "../base";
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    width: 400px;
+    min-height: 100vh;
+    padding: 0 200px;
+
+    box-sizing: content-box;
+
+    background-color: rgba(131, 131, 131, 0.13);
+    backdrop-filter: blur(5px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    #logo {
+        width: 100%;
+        height: 150px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+
+        img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    #form-container {
+        width: 100%;
+        flex-grow: 1;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+
+        .header {
+            font-size: 1.2em;
+        }
+
+        .input-area {
+            background-color: $color-dark;
+            border: 2px solid $color-white;
+
+            input::placeholder {
+                color: $color-white;
+            }
+
+            .icon {
+                color: $color-white;
+            }
+        }
+
+        #reset-password-text{
+            position: relative;
+            top: -15px;
+            text-align: right;
+        }
+    }
+
+    #footer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+        
+        #error-message{
+            display: block;
+
+            padding: 10px;
+            color: rgb(252, 99, 107);
+            text-align: center;
+        }
+
+        button {
+            background-color: $color-theme;
+        }
+        button:hover {
+            cursor: pointer;
+            background-color: $color-theme-dark;
+        }
+        span {
+            margin-top: 5px;
+        }
+    }
+
+    #another-way {
+        width: 100%;
+        margin-top: 50px;
+
+        .header {
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .divider-line {
+            background: linear-gradient(
+                90deg,
+                hsla(35, 100%, 97%, 0.1),
+                hsla(44, 100%, 92%, 0.5) 47.92%,
+                hsla(35, 100%, 97%, 0.1)
+            );
+            width: 100%;
+            height: 2px;
+
+            margin-bottom: 10px;
+        }
+
+        #discord {
+            background-color: #7289da;
+
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        #discord:hover {
+            cursor: pointer;
+
+            background-color: #4f67be;
+        }
+    }
+
+    .button {
+        padding: 16px 0;
+        border-radius: 10px;
+
+        background-color: $color-theme;
+        color: $color-white;
+        font-weight: 600;
+
+        outline: none;
+        border: none;
+    }
+
+    @media (max-width: 900px) {
+        padding: 0 150px;
+    }
+
+    @media (max-width: 800px) {
+        padding: 0 100px;
+    }
+
+    @media (max-width: 700px) {
+        padding: 0 50px;
+        width: 100%;
+        min-width: 300px;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 400px) {
+        padding: 0 20px;
+    }
+}
+
+
+
+.link {
+    text-decoration: none;
+    color: $color-theme;
+    font-weight: 700;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: $color-theme-dark;
+}

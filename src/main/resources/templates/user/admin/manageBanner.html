@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Zarządzaj banerami | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/user/manageBanner.css">
+    <link rel="stylesheet" href="/css/manage/manageServer.css">
+    <link rel="stylesheet" href="/css/fragment/manageMenu.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="change-banner-popup" class="bp-popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="header">
+                <div class="title">
+                    Edytowanie
+                </div>
+                <div class="close-popup" id="close-change-banner-popup"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+
+            <div class="banner-preview">
+                <img id="banner-preview-src">
+            </div>
+
+            <div id="form-container" class="center">
+                Link: <br>
+                <span id="link-preview"></span>
+
+                <div class="input-area">
+                    <input id="reject-reason-input" type="text" placeholder="Powód odrzucenia" maxlength="256">
+                    <div class="icon">
+                        <i class="fa-solid fa-link"></i>
+                    </div>
+                </div>
+
+                <div class="error" id="error-response"></div>
+
+                <div class="save-button center" id="accept-button">
+                    Zaakceptuj
+                </div>
+
+                <div class="save-button center" id="reject-button">
+                    Odrzuć
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-banner-popup" class="bp-popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="header">
+                <div class="title">
+                    Usuwanie
+                </div>
+                <div class="close-popup" id="close-delete-banner-popup"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+
+            <div class="banner-preview">
+                <img id="banner-preview-src">
+            </div>
+
+            <div id="form-container" class="center">
+                Czy na pewno chcesz usunąć ten baner?
+
+                <div class="save-button center" id="delete-banner-button">
+                    Usuń
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-container">
+        <aside>
+            <div th:replace="~{fragment/userMenu :: menuFragment}"></div>
+            <div class="divider-line-vertical">
+            </div>
+        </aside>
+
+        <section id="container">
+            <div id="banner-container" class="center">
+                <h1 class="header">
+                    Banery reklamowe
+                </h1>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Data publikacji</th>
+                            <th>Data zakończenia</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+
+<script type="module" th:inline="javascript">
+    const editPopup = document.getElementById('change-banner-popup');
+    const deletePopup = document.getElementById('delete-banner-popup');
+
+    const linkPreview = document.getElementById('link-preview');
+
+    const rejectReasonInput = document.getElementById('reject-reason-input');
+
+    const previewBanner = document.getElementById('banner-preview-src');
+    const responseError = document.getElementById('error-response');
+
+    const tableBody = document.getElementById('table-body');
+    var selectedBanner;
+
+    import { convertDate } from './js/utils.js';
+
+    document.getElementById('close-change-banner-popup').addEventListener('click', () => {
+        editPopup.classList.remove('active');
+    });
+    document.getElementById('accept-button').addEventListener('click', () => {
+        acceptBannerPerform();
+    });
+    document.getElementById('reject-button').addEventListener('click', () => {
+        rejectBannerPerform();
+    });
+
+    const banners = /*[[${banners}]]*/[];
+    if (banners != null) {
+        banners.forEach(banner => {
+            addRow(banner);
+        });
+    }
+
+    function addRow(bannerJson) {
+        var id = bannerJson.id;
+        var publishedAt = convertDate(bannerJson.publishedAt);
+        var finishedAt = convertDate(bannerJson.finishedAt);
+        var status = getStatus(bannerJson);
+
+        var newRow = document.createElement('tr');
+        newRow.innerHTML = `
+                <th>${id}</th>
+                <td>${publishedAt}</td>
+                <td>${finishedAt}</td>
+                <td>${status}</td>
+                <td class="action-buttons"></td>
+            `;
+
+        tableBody.appendChild(newRow);
+        bannerJson.row = newRow;
+
+        var editIcon = document.createElement('i');
+        editIcon.className = 'fa-solid fa-pen-to-square';
+        editIcon.title = "Edytuj baner";
+        editIcon.onclick = function () { editBanner(bannerJson); };
+        newRow.lastElementChild.appendChild(editIcon);
+
+        var deleteIcon = document.createElement('i');
+        deleteIcon.className = 'fa-solid fa-trash';
+        deleteIcon.title = "Usuń baner";
+        deleteIcon.onclick = function () { deleteBanner(bannerJson); };
+        newRow.lastElementChild.appendChild(deleteIcon);
+    }
+
+    function editBanner(bannerJson) {
+        editPopup.classList.add('active');
+
+        previewBanner.src = bannerJson.filePath;
+        linkPreview.innerHTML = bannerJson.link;
+        selectedBanner = bannerJson;
+    }
+
+    async function acceptBannerPerform() {
+        responseError.innerHTML = '';
+
+        try {
+            const response = await fetch('/banner/' + selectedBanner.id + '/accept', {
+                method: 'POST',
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+                responseError.innerHTML = responseJson.message;
+            }
+        } catch (error) {
+            responseError.innerHTML = error.message;
+        }
+    }
+
+    async function rejectBannerPerform() {
+        responseError.innerHTML = '';
+
+        const formData = new FormData();
+        formData.append('reason', rejectReasonInput.value);
+
+        try {
+            const response = await fetch('/banner/' + selectedBanner.id + '/reject', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+                responseError.innerHTML = responseJson.message;
+            }
+        } catch (error) {
+            responseError.innerHTML = error.message;
+        }
+    }
+
+    function deleteBanner(bannerJson) {
+        selectedBanner = bannerJson;
+
+        deletePopup.classList.add('active');
+    }
+
+    async function deleteBannerPerform() {
+        try {
+            const response = await fetch('/banner/' + selectedBanner.id, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+
+            deletePopup.classList.remove('active');
+            selectedBanner.row.remove();
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    function getStatus(bannerJson) {
+        if (bannerJson.status == "PUBLISHED") {
+            return "Opublikowany";
+        }
+        if (bannerJson.status == "ACCEPTED") {
+            return "Zaakceptowany";
+        }
+        if (bannerJson.status == "REJECTED") {
+            return "Odrzucony   <i class=\"fa-solid fa-circle-info\" title='Powód: " + bannerJson.rejectedReason + "'></i>";
+        }
+        if (bannerJson.status == "NOT_VERIFIED") {
+            return "Podczas weryfikacji";
+        }
+        if (bannerJson.status == "FINISHED") {
+            return "Zakończony";
+        }
+    }
+</script>
+
+</html>

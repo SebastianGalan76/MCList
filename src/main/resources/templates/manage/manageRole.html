@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Zarządzaj uprawnieniami | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/manage/manageRole.css">
+    <link rel="stylesheet" href="/css/manage/manageServer.css">
+    <link rel="stylesheet" href="/css/fragment/manageMenu.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+
+    <script type="module" src="/js/manage/role/roleManager.js" defer></script>
+</head>
+
+<body>
+    <div class="popup" id="remove-rank-confirmation-popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <i class="fa-solid fa-circle-check header-icon"></i>
+            <div class="close-btn"><i class="fa-solid fa-xmark"></i></div>
+            <span class="text">
+                Czy na pewno chcesz usunąć rangę<br>
+                <span id="remove-rank-confirmation-name">Właściciel</span>?
+            </span>
+
+            <div class="double-button">
+                <div class="action-btn yes-button">Tak</div>
+                <div class="action-btn no-button">Nie</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-container">
+        <aside>
+            <div th:replace="~{fragment/manageMenu :: menuFragment}"></div>
+            <div class="divider-line-vertical">
+            </div>
+        </aside>
+
+        <section id="container">
+            <div id="role-container" class="center">
+                <h1 class="header">
+                    Role serwera
+                </h1>
+                <div class="info">Jest to miejsce, gdzie możesz nadać innym użytkownikom uprawnienia do edycji różnych
+                    sekcji serwera na naszej stronie. Dzięki temu możesz przedzielić poszczególnym osobom zadanie
+                    aktualizowania m.in. informacji o serwerze, linków, administracji itp.</div>
+
+                <div id="role-description">
+                    <div class="role">
+                        <div class="title">HELPER</div>
+
+                        <div class="permissions">
+                            <ul>
+                                <li>Edycja opisu serwera</li>
+                                <li>Edycja administracji</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role">
+                        <div class="title">MODERATOR</div>
+
+                        <div class="permissions">
+                            <ul>
+                                <li>Edycja opisu serwera</li>
+                                <li>Edycja administracji</li>
+                                <br>
+                                <li>Edycja podstawowych informacji</li>
+                                <li>Edycja linków</li>
+                                <li>Edycja banneru</li>
+                                <li>Edycja trybów</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="role">
+                        <div class="title">ADMINISTRATOR</div>
+
+                        <div class="permissions">
+                            <ul>
+                                <li>Edycja opisu serwera</li>
+                                <li>Edycja administracji</li>
+                                <br>
+                                <li>Edycja podstawowych informacji</li>
+                                <li>Edycja linków</li>
+                                <li>Edycja banneru</li>
+                                <li>Edycja trybów</li>
+                                <br>
+                                <li>Edycja uprawnień</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="create-new-role-panel" class="form-container center">
+                    <div class="title">Tworzenie nowej roli</div>
+                    <div class="form-container center">
+                        <div class="input-area">
+                            <input id="user-email-input" type="text" placeholder="E-mail lub login użytkownika"
+                                maxlength="60" autocomplete="off">
+                            <div class="icon">
+                                <i class="fa-solid fa-person"></i>
+                            </div>
+                            <div class="required">*</div>
+                        </div>
+                        <select id="role-select" class="select-value-area" name="role">
+                            <option value="HELPER">Helper</option>
+                            <option value="MODERATOR">Moderator</option>
+                            <option value="ADMINISTRATOR">Administrator</option>
+                        </select>
+
+                        <div id="create-role-button" class="add-button">
+                            Stwórz
+                        </div>
+                    </div>
+                    <div id="create-role-error" class="error">
+                    </div>
+                </div>
+
+                <div id="role-wrapper">
+                    <div class="title">Role</div>
+
+                    <ul id="created-role-container" class="sortable-list-role">
+
+
+                    </ul>
+                </div>
+
+                <span class="error center" id="response-error"></span>
+                <div id="save-role-button" class="center action-button margin-50-150">
+                    Zapisz zmiany
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+<template id="role-template">
+    <li class="role item">
+        <div class="user-login"></div>
+
+        <div class="right-panel">
+            <div class="role-name"></div>
+            <div class="remove-button"><i class="fa-solid fa-trash"></i></div>
+        </div>
+    </li>
+</template>
+
+<script type="module" th:inline="javascript">
+    const serverId = /*[[${server.id}]]*/ 0;
+    const loadedRoles = /*[[${server.serverUserRoles}]]*/[];
+
+    const responseError = document.getElementById("response-error");
+
+    document.getElementById("save-role-button").addEventListener("click", () => {
+        saveRole();
+    });
+
+    import { getRoles, loadRoles } from "./js/manage/role/roleManager.js";
+    loadRoles(loadedRoles);
+
+    async function saveRole() {
+        const serverRoleDto = {
+            roles: getRoles()
+        }
+
+        try {
+            const response = await fetch('/server/' + serverId + '/manage/role/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(serverRoleDto)
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+
+                if (responseJson.status == "BAD_REQUEST") {
+                    responseError.innerHTML = responseJson.message;
+                }
+                else if (responseJson.status == "OK") {
+                    responseError.innerHTML = "Zmiany zostały zapisane";
+                }
+            }
+        } catch (error) {
+            responseError.innerHTML = error.message;
+        }
+    }
+</script>
+
+</html>

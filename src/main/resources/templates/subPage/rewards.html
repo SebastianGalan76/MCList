@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Nagrody za głosowanie | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/subPage/rewards.css">
+    <link rel="stylesheet" href="/css/fragment/header.css">
+    <link rel="stylesheet" href="/css/fragment/footer.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragment/header :: headerFragment}"></div>
+
+    <section id="container">
+        <br>
+        <h1 class="header center">Nagrody za głosowanie</h1>
+
+        <br><br>
+        <div class="info">Obecnie pracujemy nad publicznym pluginem do nagradzania graczy za głosowania na serwer. Pracę
+            wciąż trwają i w momencie zakończenia, pojawi się odpowiednia informacja.</div>
+        <br><br>
+        <div class="info">Jeśli chcesz wykonać swój własny plugin, który będzie zintegrowany z naszą stroną, poniżej
+            przedstawiamy dostępne API</div>
+        <br><br>
+        <h2 class="center">API</h2>
+        <div class="endpoint-container">
+            <h2 class="title">Weryfikacja głosu</h2>
+            <div class="description">Endpoint zwraca informację, czy dany gracz ma ważny głos, czyli taki, który pozwala
+                mu odebrać nagrodę.</div>
+
+            <div class="endpoint"><span class="method">GET</span> /api/vote/check/{server_id}/{player_nick}</div>
+            <div class="values">
+                <div class="value">{server_id} - Identyfikator serwera. Można go znaleźć w zakładce "Zarządzaj" serwera
+                </div>
+                <div class="value">{player_nick} - Nick gracza, dla którego chcecie sprawdzić, czy ma ważny głos</div>
+            </div>
+            <div class="response">
+                <div class="status">Status: OK - Sukces</div>
+                <code>
+                    {
+                        <br>
+                        <div class="fields">
+                        <span class="comment">//Dla HttpStatus 200 (OK), wartość error jest zawsze równa null</span><br>
+                        "error": null,<br>
+                        <span class="comment">//Identyfikator głosu. Potrzebny, aby potwierdzić odbiór nagrody</span><br>
+                        "voteId": 5,<br>
+                        <span class="comment">//Data głosowania. Każdy gracz może mieć kilka głosów bez odebranej nagrody</span><br>
+                        "votedAt": "2024-08-09"<br>
+                        </div>
+                    }
+                </code>
+            </div>
+
+            <div class="response">
+                <div class="status">Status: BAD_REQUEST - Błąd</div>
+                <code>
+                    {
+                        <br>
+                        <div class="fields">
+                        <span class="comment">//Dla HttpStatus 400 (BAD_REQUEST), wartość error posiada pole message oraz identyfikator błędu</span><br>
+                        "error": {
+                            <div class="fields">"id": 2,</div>
+                            <div class="fields">"message": "This player has not voted or has already received his reward"</div>
+                        },<br>
+                        <span class="comment">//Identyfikator głosu. Potrzebny, aby potwierdzić odbiór nagrody</span><br>
+                        "voteId": null,<br>
+                        <span class="comment">//Data głosowania. Każdy gracz może mieć kilka głosów bez odebranej nagrody</span><br>
+                        "votedAt": null<br>
+                        </div>
+                    }
+                </code>
+
+                <br><br><br>
+                <span><b>Możliwe identyfikatory błędu:</b></span><br>
+                1 - Niepoprawny identyfikator serwera. Brak serwera z podanym identyfikatorem<br>
+                2 - Gracz o takim nicku nie posiada głosów, za które mógłby otrzymać nagrodę (wykorzystał już nagrodę
+                lub nie oddał głosu)<br>
+            </div>
+        </div>
+
+        <div class="endpoint-container">
+            <h2 class="title">Potwierdzenie nadania nagrody</h2>
+            <div class="description">Endpoint potwierdza nadanie nagrody dla konkretnego gracza. Pamiętaj o tym, aby go
+                wysyłać po nadaniu nagrody, ponieważ gdy tego nie zrobisz, użytkownik będzie mógł ciągle odbierać
+                nagrody za jeden głos.</div>
+
+            <div class="endpoint"><span class="method">POST</span> /api/vote/confirm/{server_id}/{vote_id}</div>
+            <div class="values">
+                <div class="value">{server_id} - Identyfikator serwera. Można go znaleźć w zakładce "Zarządzaj" serwera
+                </div>
+                <div class="value">{vote_id} - Identyfikator głosu. Można go otrzymać, korzystając z powyższego
+                    endpointa.</div>
+            </div>
+            <div class="response">
+                <div class="status">Status: OK - Sukces</div>
+                <code>
+                    SUCCESS
+                </code>
+            </div>
+
+            <div class="response">
+                <div class="status">Status: BAD_REQUEST - Błąd</div>
+                <code>
+                    Message
+                </code>
+
+                <br><br><br>
+                <span><b>Możliwe błędy:</b></span><br>
+                Brak głosu o podanym identyfikatorze<br>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragment/footer :: footerFragment}"></div>
+</body>
+
+</html>

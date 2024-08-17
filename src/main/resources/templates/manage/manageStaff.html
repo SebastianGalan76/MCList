@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Zarządzaj Administracją | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/manage/manageStaff.css">
+    <link rel="stylesheet" href="/css/manage/manageServer.css">
+    <link rel="stylesheet" href="/css/fragment/manageMenu.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+
+    <script type="module" src="/js/manage/staff/staffManager.js" defer></script>
+    <script type="module" src="/js/manage/staff/rankEditor.js" defer></script>
+</head>
+
+<body>
+    <div id="rank-editor-popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <div id="staff-panel">
+                <div id="rank-name-preview">Właściciel</div>
+                <div class="form-container">
+                    <div class="input-area">
+                        <input id="rank-name-input" type="text" maxlength="60" placeholder="Nazwa rangi"
+                            autocomplete="off">
+                        <div class="icon">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <div class="required">*</div>
+                    </div>
+
+                    <div class="input-area color-input-area">
+                        <input id="rank-color-input" class="color-input" type="color" value="#ffffff"
+                            autocomplete="off">
+                    </div>
+                    <div id="remove-rank-button" class="remove-button" title="Usuń całą rangę">
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                </div>
+
+                <div id="staff-editor">
+                    <div class="player-panel">
+                        <div class="player-form-container center">
+                            <div class="input-area">
+                                <input id="nick-input" type="text" maxlength="60" placeholder="Nick gracza"
+                                    autocomplete="off">
+                                <div class="icon">
+                                    <i class="fa-solid fa-server"></i>
+                                </div>
+                                <div class="required">*</div>
+                            </div>
+
+                            <div id="create-new-player" class="add-button">
+                                Dodaj
+                            </div>
+                        </div>
+                        <span class="add-player-error error"></span>
+                        <div class="down-panel">
+                            <div class="selected-player-wrapper">
+                                <div class="selected-player" style="visibility: hidden;">
+                                    <div class="player">
+                                        <div class="head">
+                                            <img class="head-src" src="" draggable="false">
+                                        </div>
+                                        <div class="nick">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="edit-button button">
+                                        Zapisz
+                                    </div>
+                                    <div class="remove-button button" id="remove-player-button">
+                                        <i class="fa-solid fa-trash center"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="social-links-form-container scrollable">
+                                <div class="header">Sociale</div>
+                                <div class="input-area">
+                                    <input id="discord-input" type="text" autocomplete="off" placeholder="Discord">
+                                    <div class="icon">
+                                        <i class="fa-brands fa-discord"></i>
+                                    </div>
+                                </div>
+                                <div class="input-area">
+                                    <input id="tiktok-input" type="text" autocomplete="off" placeholder="TikTok">
+                                    <div class="icon">
+                                        <i class="fa-brands fa-tiktok"></i>
+                                    </div>
+                                </div>
+                                <div class="input-area">
+                                    <input id="youtube-input" type="text" autocomplete="off" placeholder="YouTube">
+                                    <div class="icon">
+                                        <i class="fa-brands fa-youtube"></i>
+                                    </div>
+                                </div>
+                                <div class="input-area">
+                                    <input id="instagram-input" type="text" autocomplete="off" placeholder="Instagram">
+                                    <div class="icon">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                </div>
+
+                                <div id="social-link-error" class="error"></div>
+                            </div>
+                        </div>
+
+                        <ul class="players-container scrollable-horizontal scrollable sortable-list">
+
+                        </ul>
+                    </div>
+
+                    <span id="error-message" class="error center"></span>
+                </div>
+                <div class="save action-button center margin-30" id="save-rank-changes-button">Zapisz</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="remove-rank-confirmation-popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <i class="fa-solid fa-circle-check header-icon"></i>
+            <div class="close-btn"><i class="fa-solid fa-xmark"></i></div>
+            <span class="text">
+                Czy na pewno chcesz usunąć rangę<br>
+                <span id="remove-rank-confirmation-name">Właściciel</span>?
+            </span>
+
+            <div class="double-button">
+                <div class="action-btn yes-button">Tak</div>
+                <div class="action-btn no-button">Nie</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-container">
+        <aside>
+            <div th:replace="~{fragment/manageMenu :: menuFragment}"></div>
+            <div class="divider-line-vertical">
+            </div>
+        </aside>
+
+        <section id="container">
+            <div id="staff-container" class="center">
+                <h1 class="header">
+                    Administracja
+                </h1>
+
+                <div id="create-new-rank-panel" class="form-container center">
+                    <div class="title">Tworzenie nowej rangi</div>
+                    <div class="form-container center">
+                        <div class="input-area">
+                            <input id="create-rank-name-input" type="text" placeholder="Nazwa rangi" maxlength="60"
+                                autocomplete="off">
+                            <div class="icon">
+                                <i class="fa-solid fa-server"></i>
+                            </div>
+                            <div class="required">*</div>
+                        </div>
+
+                        <div class="input-area color-input-area">
+                            <input id="create-rank-color-input" class="color-input" type="color" value="#ffffff"
+                                autocomplete="off">
+                        </div>
+                        <div id="create-rank-button" class="add-button">
+                            Stwórz
+                        </div>
+                    </div>
+                    <div id="create-rank-error" class="error">
+                    </div>
+                </div>
+
+                <div id="rank-wrapper">
+                    <div class="title">Rangi</div>
+
+                    <ul id="rank-container" class="sortable-list-rank">
+
+
+                    </ul>
+                </div>
+
+                <span class="error center" id="response-error"></span>
+                <div id="save-staff-button" class="center action-button margin-50-150">
+                    Zapisz zmiany
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+<template id="player-template">
+    <li class="player item" draggable="true">
+        <div class="head">
+            <img class="head-src" src="" draggable="false">
+        </div>
+        <div class="nick">
+
+        </div>
+        <div class="links">
+            <i class="fa-brands fa-discord" style="display: none;"></i>
+            <i class="fa-brands fa-tiktok" style="display: none;"></i>
+            <i class="fa-brands fa-instagram" style="display: none;"></i>
+            <i class="fa-brands fa-youtube" style="display: none;"></i>
+        </div>
+    </li>
+</template>
+<template id="rank-template">
+    <li class="rank item" draggable="true">
+        <div class="rank-name"></div>
+
+        <div class="click-to-edit">Kliknij, aby edytować <i class="fa-solid fa-grip-vertical"></i></div>
+    </li>
+</template>
+
+<script type="module" th:inline="javascript">
+    const serverId = /*[[${server.id}]]*/ 0;
+    const loadedStaff = /*[[${server.staff}]]*/[];
+    const sortedloadedStaff = loadedStaff.sort((a, b) => a.index - b.index);
+
+    const responseError = document.getElementById("response-error");
+
+    document.getElementById("save-staff-button").addEventListener("click", () => {
+        saveStaff();
+    });
+
+    import { staffRanks, loadStaff, getSortedStaffRanks } from "./js/manage/staff/staffManager.js";
+    loadStaff(sortedloadedStaff);
+
+    async function saveStaff() {
+        const staffDto = {
+            rankList: getSortedStaffRanks()
+        }
+
+        try {
+            const response = await fetch('/server/' + serverId + '/manage/staff/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(staffDto)
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+
+                if (responseJson.status == "BAD_REQUEST") {
+                    responseError.innerHTML = responseJson.message;
+                }
+                else if (responseJson.status == "OK") {
+                    responseError.innerHTML = "Zmiany zostały zapisane";
+                }
+            }
+        } catch (error) {
+            responseError.innerHTML = error.message;
+        }
+    }
+</script>
+
+<script type="module">
+    //Responsible for sortable players
+    const sortableList = document.querySelector(".sortable-list");
+    const items = sortableList.querySelectorAll(".item");
+
+    const initSortableList = (e) => {
+        e.preventDefault();
+        const draggingItem = document.querySelector(".dragging");
+        let siblings = [...sortableList.querySelectorAll(".item:not(.dragging)")];
+
+        const containerRect = sortableList.getBoundingClientRect();
+        const mouseX = e.clientX - containerRect.left + sortableList.scrollLeft;
+
+        let nextSibling = siblings.find(sibling => {
+            const siblingRect = sibling.getBoundingClientRect();
+            const siblingX = siblingRect.left - containerRect.left + sortableList.scrollLeft;
+
+            return mouseX <= siblingX + siblingRect.width / 2;
+        });
+
+        sortableList.insertBefore(draggingItem, nextSibling);
+    };
+
+    sortableList.addEventListener("dragover", initSortableList);
+    sortableList.addEventListener("dragenter", e => e.preventDefault());
+</script>
+
+<script type="module">
+    //Responsible for sortable ranks
+    const sortableListRank = document.querySelector(".sortable-list-rank");
+    const itemRanks = sortableListRank.querySelectorAll(".item");
+
+    const initSortableListRank = (e) => {
+        e.preventDefault();
+        const draggingItem = document.querySelector(".dragging");
+        if (draggingItem.classList.contains("player")) {
+            return;
+        }
+
+        let siblings = [...sortableListRank.querySelectorAll(".item:not(.dragging)")];
+
+        let nextSibling = siblings.find(sibling => {
+            const rect = sibling.getBoundingClientRect();
+            return e.clientY <= rect.top + rect.height / 2;
+        });
+
+        sortableListRank.insertBefore(draggingItem, nextSibling);
+    };
+
+    sortableListRank.addEventListener("dragover", initSortableListRank);
+    sortableListRank.addEventListener("dragenter", e => e.preventDefault());
+</script>
+
+</html>

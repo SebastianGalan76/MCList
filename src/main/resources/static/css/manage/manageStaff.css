@@ -1,0 +1,309 @@
+#staff-container {
+  width: 800px;
+}
+#staff-container #rank-wrapper {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  padding: 20px 10px;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+#staff-container #rank-wrapper .title {
+  font-weight: 600;
+  font-size: 1.4em;
+}
+#staff-container #rank-container .rank {
+  background-color: rgba(255, 255, 255, 0.1176470588);
+  border: 1px solid rgba(121, 121, 121, 0.5607843137);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  margin-top: 25px;
+  border-radius: 20px;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+#staff-container #rank-container .rank .rank-name {
+  font-weight: 800;
+  font-size: 1.5em;
+}
+#staff-container #rank-container .rank .click-to-edit {
+  font-size: 0.9em;
+  color: #c7c7c7;
+}
+#staff-container #rank-container .rank:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2470588235);
+}
+#staff-container #link-container .link {
+  background-color: rgba(255, 255, 255, 0.1176470588);
+  border: 1px solid rgba(121, 121, 121, 0.5607843137);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  margin-top: 25px;
+  border-radius: 20px;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+#staff-container #link-container .link .link-name-preview {
+  font-weight: 800;
+  font-size: 1.5em;
+}
+#staff-container #link-container .link .right-panel {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+#staff-container #link-container .link .right-panel .click-to-edit {
+  font-size: 0.9em;
+  color: #c7c7c7;
+}
+#staff-container #link-container .link .right-panel .remove-link-button {
+  padding: 8px 10px;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: rgba(255, 0, 0, 0.26);
+  color: rgb(252, 99, 107);
+  border: 2px solid rgb(252, 99, 107);
+  border-radius: 10px;
+}
+#staff-container #link-container .link .right-panel .remove-link-button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.664);
+}
+#staff-container #link-container .selected {
+  background-color: #e2a258;
+}
+#staff-container #link-container .link:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2470588235);
+}
+#staff-container #create-new-rank-panel {
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2588235294);
+  padding: 20px;
+  border-radius: 20px;
+}
+#staff-container #create-new-rank-panel .title {
+  font-size: 1.2em;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+#staff-container #create-new-rank-panel .form-container {
+  width: 100%;
+  gap: 10px;
+  display: flex;
+}
+@media (max-width: 1100px) {
+  #staff-container #create-new-rank-panel .form-container .color-input-area {
+    width: 50px;
+  }
+}
+@media (max-width: 1100px) {
+  #staff-container {
+    width: 100%;
+  }
+}
+
+#rank-editor-popup {
+  visibility: hidden;
+}
+#rank-editor-popup .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 500;
+}
+#rank-editor-popup .content {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0) scale(0);
+  width: 800px;
+  z-index: 501;
+  border-radius: 10px;
+  transition: transform 0.15s ease;
+}
+#rank-editor-popup .content #staff-panel {
+  overflow: hidden;
+  background-color: rgb(66, 66, 66);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  border-radius: 25px;
+}
+@media (max-width: 1100px) {
+  #rank-editor-popup .content #staff-panel .color-input-area {
+    width: 50px;
+  }
+}
+#rank-editor-popup .content #staff-panel #rank-name-preview {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  text-align: center;
+  padding: 10px 0;
+  font-size: 2em;
+  font-weight: 600;
+}
+#rank-editor-popup .content #staff-panel #staff-editor {
+  margin-top: 10px;
+  border-radius: 20px;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.13);
+  padding: 20px;
+}
+#rank-editor-popup .content #staff-panel .form-container {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border-radius: 0 0 20px 20px;
+}
+#rank-editor-popup .content #staff-panel .player-panel .add-player-error {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+}
+#rank-editor-popup .content #staff-panel .player-panel .player-form-container {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+#rank-editor-popup .content #staff-panel .player-panel .down-panel {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+#rank-editor-popup .content #staff-panel .player-panel .down-panel .selected-player-wrapper {
+  padding: 15px 50px;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border-radius: 20px;
+}
+@media (max-width: 1100px) {
+  #rank-editor-popup .content #staff-panel .player-panel .down-panel .selected-player-wrapper {
+    padding: 15px 15px;
+  }
+}
+#rank-editor-popup .content #staff-panel .player-panel .down-panel .selected-player .button {
+  width: 100%;
+  text-align: center;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+#rank-editor-popup .content #staff-panel .player-panel .down-panel .selected-player .edit-button {
+  background-color: rgba(75, 198, 255, 0.4784313725);
+  border: 2px solid #4bccff;
+}
+#rank-editor-popup .content #staff-panel .player-panel .down-panel .selected-player .edit-button:hover {
+  cursor: pointer;
+  background-color: rgba(75, 198, 255, 0.7607843137);
+}
+#rank-editor-popup .content #staff-panel .player-panel .down-panel .selected-player .player {
+  background-color: transparent;
+}
+@media (max-width: 1100px) {
+  #rank-editor-popup .content #staff-panel .player-panel .down-panel .selected-player .player .head-src {
+    width: 80px;
+    height: 80px;
+  }
+}
+#rank-editor-popup .content #staff-panel .player-panel .players-container {
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.164);
+  padding-bottom: 30px;
+  width: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+#rank-editor-popup .content #staff-panel .player-panel .players-container .selected {
+  background-color: #e2a258 !important;
+}
+#rank-editor-popup .content #staff-panel .player-panel .player {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+}
+#rank-editor-popup .content #staff-panel .player-panel .player .head {
+  border-radius: 10px;
+  overflow: hidden;
+}
+#rank-editor-popup .content #staff-panel .player-panel .player .head img {
+  width: 120px;
+  height: 120px;
+}
+#rank-editor-popup .content #staff-panel .player-panel .player .nick {
+  text-align: center;
+  font-weight: 600;
+}
+#rank-editor-popup .content #staff-panel .player-panel .player .links {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#rank-editor-popup .content #staff-panel .social-links-form-container {
+  overflow: auto;
+  flex-grow: 1;
+}
+#rank-editor-popup .content #staff-panel .social-links-form-container .input-area {
+  margin-top: 5px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border: 1px solid #e2a258;
+}
+#rank-editor-popup .content #staff-panel .social-links-form-container .input-area input {
+  height: 36px;
+}
+#rank-editor-popup .content #staff-panel .social-links-form-container .header {
+  font-weight: 800;
+  padding: 10px 20px;
+}
+#rank-editor-popup .content #staff-panel .remove-button {
+  background-color: rgb(153, 51, 51);
+  border: 2px solid rgb(252, 99, 107);
+  border-radius: 10px;
+  color: rgb(252, 99, 107);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+#rank-editor-popup .content #staff-panel .remove-button:hover {
+  cursor: pointer;
+  background-color: rgb(190, 45, 45);
+}
+#rank-editor-popup .content #staff-panel #remove-player-button {
+  transition: none !important;
+}
+@media (max-width: 1100px) {
+  #rank-editor-popup .content {
+    width: 100%;
+  }
+}
+
+#rank-editor-popup.active {
+  visibility: visible;
+}
+#rank-editor-popup.active .content {
+  transform: translate(-50%, 0) scale(1);
+}/*# sourceMappingURL=manageStaff.css.map */

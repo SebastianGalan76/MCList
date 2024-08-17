@@ -1,0 +1,76 @@
+@import "../base";
+
+#menu-button{
+    font-size: 1.3em;
+    padding: 10px;
+
+    position: absolute;
+    display: none;
+    
+    @media (max-width: 800px){
+        display: block;
+    }
+}
+
+#aside-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 50px 10px 10px 10px;
+
+    .user-panel{
+        padding: 10px 20px;
+        display: flex !important;
+        flex-direction: column !important;
+        background-color: $color-dark;
+        border-radius: 10px;
+        border: 1px solid $color-white;
+
+        .login{
+            font-weight: 800;
+        }
+
+        .role{
+            font-style: italic;
+        }
+    }
+
+    .server-page{
+        margin: 50px 0;
+        color: $color-green;
+        font-size: 1.2em;
+    }
+    .server-page:hover{
+        cursor: pointer;
+        color: $color-green-dark;
+    }
+
+    .menu{
+        .title{
+            font-weight: 800;
+        }
+
+        li{
+            padding: 10px 5px;
+            font-size: 1.2em;
+            list-style: none;
+    
+            border-bottom: 1px solid $color-white;
+        }
+
+        li:hover{
+            background-color: $color-dark;
+            cursor: pointer;
+        }
+    }
+
+    @media (max-width: 800px){
+        font-size: 0.9em;
+
+        display: none;
+    }
+}
+
+#aside-menu.active{
+    display: flex;
+}

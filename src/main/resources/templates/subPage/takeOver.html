@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title th:text="'Przejmowanie serwera '+ ${server.name.name} +' | MC-List.pl'"></title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/subPage/takeOver.css">
+    <link rel="stylesheet" href="/css/fragment/header.css">
+    <link rel="stylesheet" href="/css/fragment/footer.css">
+    <link rel="stylesheet" href="/css/fragment/serverPreview.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragment/header :: headerFragment}"></div>
+
+    <div id="page-wrapper" class="center">
+        <section id="container">
+            <div id="server-preview" class="panel">
+                <div class="logo">
+                    <img class="logo-src">
+                </div>
+                <div class="middle-panel">
+                    <div class="address-value">
+
+                    </div>
+                    <div class="motd">
+                        <div class="motd">
+
+                        </div>
+                    </div>
+                    <div class="tag-container">
+                        <div class="tag mode-tag" style="display: none;">
+                            <div class="icon">
+                                <i class="fa-solid fa-dice-d6"></i>
+                            </div>
+                            <div class="content">
+
+                            </div>
+                        </div>
+
+                        <div class="tag version-tag" style="display: none;">
+                            <div class="icon">
+                                <i class="fa-solid fa-code-branch"></i>
+                            </div>
+                            <div class="content">
+
+                            </div>
+                        </div>
+
+                        <div class="tag mods-tag" style="display: none;">
+                            <div class="icon">
+                                <i class="fa-solid fa-parachute-box"></i>
+                            </div>
+                            <div class="content">
+                                Mody
+                            </div>
+                        </div>
+
+                        <div class="tag premium-tag" style="display: none;">
+                            <div class="icon">
+                                <i class="fa-solid fa-medal"></i>
+                            </div>
+                            <div class="content">
+                                Premium
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="statistic-container">
+                    <div class="online statistic">
+                        <div class="icon">🟢</div><span class="online-value">0</span>
+                    </div>
+                    <div class="votes statistic">
+                        <div class="icon">❤️</div><span class="vote-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="main-container" class="panel">
+                <h1 class="header">Przejmowanie serwera</h1>
+
+                <br>
+                <span class="center">Przejmij serwer, aby móc dodawać opis serwera, linki, administrację, banner i wiele
+                    więcej.</span>
+                <br>
+
+                <div id="option-container">
+                    <div class="option">
+                        <div class="number center">1</div>
+                        <div class="title">Dla małych serwerów</div>
+
+                        <div class="info" th:if="${user == null}">
+                            1. <a class="link" href="/auth/signIn">Zaloguj</a> się na naszej stronie <br>
+                            2. Skopiuj wygenerowany klucz <br>
+                            3. Dodaj wygenerowany klucz do MOTD serwera <br>
+                            4. Zapisz zmiany i przeładuj serwer <br>
+                            5. Poczekaj co najmniej 1 minutę <br>
+                            6. Kliknij widoczny przycisk <br>
+                            Serwer powinien zostać przypisany do Twojego konta<br>
+                            Po zakończeniu, możesz zmienić MOTD swojego serwera
+                        </div>
+
+                        <div class="info" th:if="${user != null}">
+                            1. Skopiuj swój klucz:<br>
+                            <span class="key" th:text="${user.uuid}">gwagawg</span>
+                            2. Wklej ten klucz do MOTD serwera<br>
+                            3. Zapisz zmiany i przeładuj swój serwer<br>
+                            4. Poczekaj co najmniej 1 minutę<br>
+                            5. Kliknij poniższy przycisk<br>
+                            <div class="button center" onclick="takeOver()">Przejmij serwer</div>
+                        </div>
+                    </div>
+
+                    <div class="option">
+                        <div class="number center">2</div>
+                        <div class="title">Dla dużych serwerów</div>
+
+                        <div class="info" style="text-align: center;">
+                            Jeśli prowadzisz duży serwer i nie chcesz zmieniać MOTD swojego serwera, skontaktuj się z
+                            nami na discord, a my przeprowadzimy weryfikacje i przypiszemy Ci serwer do konta.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="response">
+                    <lottie-player id="loading-animation" class="center" src="/animation/loading.json"
+                        background="transparent" speed="1" style="width: 100px; height: 100px; display: none;" loop
+                        autoplay></lottie-player>
+                </div>
+                <div id="response-error" class="error"></div>
+            </div>
+        </section>
+    </div>
+    <div th:replace="~{fragment/footer :: footerFragment}"></div>
+</body>
+<script th:inline="javascript" type="module" defer>
+    const user = /*[[${user}]]*/ null;
+
+    import { loadServerPreview } from './js/server/serverPreviewLoader.js';
+    var server = /*[[${server}]]*/ null;
+    loadServerPreview(server);
+</script>
+
+<script th:inline="javascript">
+    const responseError = document.getElementById('response-error');
+    const loadingAnimation = document.getElementById('loading-animation');
+
+    var isFunctionLocked = false;
+
+    async function takeOver() {
+        var serverId = /*[[${server.id}]]*/ 0;
+        loadingAnimation.style.display = "block";
+
+        if (isFunctionLocked) {
+            setTimeout(() => {
+                takeOver();
+            }, 10000);
+
+            return;
+        }
+
+        isFunctionLocked = true;
+        setTimeout(() => {
+            isFunctionLocked = false;
+        }, 10000);
+
+        try {
+            const response = await fetch('/take-over/' + serverId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            loadingAnimation.style.display = "none";
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+
+                responseError.innerHTML = responseJson.message;
+            }
+        } catch (error) {
+            responseError.innerHTML = error;
+        }
+    }
+
+    function showVotePopup() {
+        votePopup.classList.add('active');
+        voteError.innerHTML = null;
+    }
+
+    function hideVotePopup() {
+        votePopup.classList.remove('active');
+    }
+</script>
+
+</html>

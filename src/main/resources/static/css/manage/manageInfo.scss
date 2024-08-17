@@ -1,0 +1,42 @@
+@import "../base";
+
+#info-container {
+    width: 800px;
+
+    #form-container{
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+
+        #loading-animation{
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #server-status-response-error{
+            border: 2px solid $color-red;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: $color-dark;
+            text-align: center;
+
+            .link{
+                color: $color-theme;
+                font-weight: 600;
+            }
+
+            @media (max-width: 600px) {
+                font-size: 0.8em;
+            }
+        }
+
+        .checkbox-container{
+            display: flex;
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 1100px){
+        width: 100%;
+    }
+}

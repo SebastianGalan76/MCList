@@ -1,0 +1,53 @@
+#main-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+#main-container aside {
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 100vh;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+}
+#main-container aside .divider-line-vertical {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+@media (max-width: 800px) {
+  #main-container aside {
+    position: absolute;
+    left: 0;
+    z-index: 100;
+    background-color: #1b1b1b;
+  }
+}
+#main-container #container {
+  flex-grow: 1;
+  padding: 10px;
+}
+#main-container #container .header {
+  font-size: 2em;
+  text-align: center;
+  padding: 25px;
+  font-weight: 700;
+}
+
+.add-button {
+  flex-shrink: 0;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgba(51, 153, 51, 0.404);
+  border: 2px solid rgb(92, 228, 98);
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  background-color: rgb(51, 153, 51);
+}/*# sourceMappingURL=manageServer.css.map */

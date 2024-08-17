@@ -1,0 +1,64 @@
+#menu-button {
+  font-size: 1.3em;
+  padding: 10px;
+  position: absolute;
+  display: none;
+}
+@media (max-width: 800px) {
+  #menu-button {
+    display: block;
+  }
+}
+
+#aside-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 50px 10px 10px 10px;
+}
+#aside-menu .user-panel {
+  padding: 10px 20px;
+  display: flex !important;
+  flex-direction: column !important;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border-radius: 10px;
+  border: 1px solid #f5f5f5;
+}
+#aside-menu .user-panel .login {
+  font-weight: 800;
+}
+#aside-menu .user-panel .role {
+  font-style: italic;
+}
+#aside-menu .server-page {
+  margin: 50px 0;
+  color: rgb(92, 228, 98);
+  font-size: 1.2em;
+}
+#aside-menu .server-page:hover {
+  cursor: pointer;
+  color: rgb(69, 202, 76);
+}
+#aside-menu .menu .title {
+  font-weight: 800;
+}
+#aside-menu .menu li {
+  padding: 10px 5px;
+  font-size: 1.2em;
+  list-style: none;
+  border-bottom: 1px solid #f5f5f5;
+}
+#aside-menu .menu li:hover {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  cursor: pointer;
+}
+@media (max-width: 800px) {
+  #aside-menu {
+    font-size: 0.9em;
+    display: none;
+  }
+}
+
+#aside-menu.active {
+  display: flex;
+}/*# sourceMappingURL=manageMenu.css.map */

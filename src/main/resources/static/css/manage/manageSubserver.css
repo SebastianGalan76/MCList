@@ -1,0 +1,108 @@
+#subserver-container {
+  width: 800px;
+}
+#subserver-container #subserver-wrapper {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  padding: 20px 10px;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+#subserver-container #subserver-wrapper .title {
+  font-weight: 600;
+  font-size: 1.4em;
+}
+#subserver-container #subserver-list-container .subserver {
+  background-color: rgba(255, 255, 255, 0.1176470588);
+  border: 1px solid rgba(121, 121, 121, 0.5607843137);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  margin-top: 25px;
+  border-radius: 20px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 30px;
+}
+#subserver-container #subserver-list-container .subserver .up-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#subserver-container #subserver-list-container .subserver .down-panel .tag-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  font-size: 0.9em;
+}
+#subserver-container #subserver-list-container .subserver .down-panel .tag-container .tag {
+  display: flex;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.1019607843);
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: 15px;
+}
+#subserver-container #subserver-list-container .subserver .subserver-name-preview {
+  font-weight: 800;
+  font-size: 1.5em;
+}
+#subserver-container #subserver-list-container .subserver .right-panel {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+#subserver-container #subserver-list-container .subserver .right-panel .click-to-edit {
+  font-size: 0.9em;
+  color: #c7c7c7;
+}
+#subserver-container #subserver-list-container .subserver .right-panel .remove-subserver-button {
+  padding: 8px 10px;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: rgba(255, 0, 0, 0.26);
+  color: rgb(252, 99, 107);
+  border: 2px solid rgb(252, 99, 107);
+  border-radius: 10px;
+}
+#subserver-container #subserver-list-container .subserver .right-panel .remove-subserver-button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.664);
+}
+#subserver-container #subserver-list-container .selected {
+  background-color: #e2a258;
+}
+#subserver-container #subserver-list-container .subserver:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2470588235);
+}
+#subserver-container #create-new-subserver-panel {
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2588235294);
+  padding: 20px;
+  border-radius: 20px;
+}
+#subserver-container #create-new-subserver-panel .title {
+  font-size: 1.2em;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+#subserver-container #create-new-subserver-panel .form-container {
+  width: 100%;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+#subserver-container #create-new-subserver-panel .form-container .row {
+  display: flex;
+  gap: 10px;
+}
+@media (max-width: 1100px) {
+  #subserver-container {
+    width: 100%;
+  }
+}/*# sourceMappingURL=manageSubserver.css.map */

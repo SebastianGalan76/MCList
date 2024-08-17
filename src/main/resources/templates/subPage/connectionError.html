@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Problemy z dodaniem serwera | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/subPage/rewards.css">
+    <link rel="stylesheet" href="/css/fragment/header.css">
+    <link rel="stylesheet" href="/css/fragment/footer.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div th:replace="~{fragment/header :: headerFragment}"></div>
+
+    <section id="container">
+        <br>
+        <h1 class="header center">Problemy z dodaniem serwera</h1>
+        <br><br>
+        Istnieje wiele powodów, dlaczego nie możesz dodać swojego serwera na naszą listę.
+        <br> <br> <br>
+        <ol>
+            <li>Upewnij się, że serwer jest włączony przez co najmniej jedną minutę. Z serwerem wyłączonym nie jesteśmy
+                w
+                stanie się połączyć i pobrać pozostałych informacji m.in. motd serwera, ikonę itp.</li>
+
+            <li>Upewnij się, że wpisałeś poprawny adres oraz port, jeśli nie korzystasz z domyślnego portu 25565.</li>
+
+            <li>Upewnij się, że w pliku server.properties wartość enable-status jest ustawiona na true.</li>
+
+            <li>Jeśli korzystasz z zapory ogniowej i filtrów to jest możliwość, że blokujesz adres serwisu
+                odpowiedzialnego
+                za pobieranie danych.</li>
+        </ol>
+        <br> <br> <br>
+        Jeśli problem będzie się powtarzał, to skontaktuj się z nami za pomocą <a href="https://discord.gg/AhEKtugFTW"
+            class="link">discord</a>
+    </section>
+
+    <div th:replace="~{fragment/footer :: footerFragment}"></div>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+@import "../base";
+
+#role-container {
+    width: 800px;
+
+    .info{
+        text-align: center;   
+        padding: 20px;
+        background-color: $color-dark;
+        border-radius: 20px;
+    }
+
+    #role-description{
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+
+        .role{
+            background-color: $color-dark;
+            border-radius: 20px;
+            padding: 20px;
+
+            border: 2px solid $color-theme;
+
+            flex-grow: 1;
+
+            .title{
+                font-weight: 800;
+                text-align: center;
+
+                margin-bottom: 25px;
+            }
+
+            ul{
+                list-style-type: none;
+            }
+        }
+    }
+
+    #role-wrapper{
+        background-color: #00000042;
+        padding: 20px 10px;
+        margin-top: 25px;
+        border-radius: 10px;
+
+        .title{
+            font-weight: 600;
+            font-size: 1.4em;
+        }
+    }
+
+    #created-role-container {
+        .role {
+            background-color: #ffffff1e;
+            border: 1px solid #7979798f;
+            backdrop-filter: blur(5px);
+
+            margin-top: 25px;
+            border-radius: 20px;
+            list-style-type: none;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+
+            .user-login {
+                font-weight: 800;
+                font-size: 1.2em;
+            }
+            .right-panel{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .remove-button{
+                    color: $color-red;
+                }
+            }
+        }
+
+        .role:hover {
+            cursor: pointer;
+            background-color: #ffffff3f;
+        }
+    }
+
+    #create-new-role-panel {
+        margin-top: 20px;
+
+        width: 100%;
+        background-color: #ffffff42;
+        padding: 20px;
+        border-radius: 20px;
+
+        .title{
+            font-size: 1.2em;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            gap: 10px;
+            display: flex;
+
+            .color-input-area{
+                @media (max-width: 1100px){
+                    width: 50px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1100px){
+        width: 100%;
+    }
+}

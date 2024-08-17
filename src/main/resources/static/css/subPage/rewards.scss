@@ -1,0 +1,74 @@
+@import "../base";
+
+#container{
+    width: 800px;
+
+    margin-left: auto;
+    margin-right: auto;
+    
+    text-align: justify;
+
+    .endpoint-container{
+        margin-top: 40px;
+
+        .description{
+            font-style: italic;
+            padding: 10px 0;
+        }
+
+        .endpoint{
+            background-color: $color-dark;
+            padding: 10px;
+            font-weight: 500;
+
+            .method{
+                color: $color-theme;
+                font-weight: 800;
+            }
+        }
+
+        .values{
+            margin-top: 10px;
+            color: #d8d8d8;
+            
+            .value{
+                font-style: italic;
+                padding: 5px 0;
+            }
+        }
+
+        .response{
+            padding: 10px;
+            background-color: $color-dark;
+            border-radius: 10px;
+            margin-top: 10px;
+
+            .status{
+                font-weight: 700;
+            }
+
+            code{
+                .fields{
+                    margin-left: 24px;
+
+                    .comment{
+                        font-style: italic;
+                        color: #adadad;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 850px){
+        width: 100%;
+        padding: 20px;
+
+        font-size: 0.8em;
+    }
+
+    .link{
+        color: $color-theme;
+        font-weight: 700;
+    }
+}

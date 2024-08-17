@@ -1,0 +1,15 @@
+@import "../base";
+
+#delete-container {
+    width: 800px;
+
+    #form-container {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+    }
+
+    @media (max-width: 1100px) {
+        width: 100%;
+    }
+}

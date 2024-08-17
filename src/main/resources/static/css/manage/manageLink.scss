@@ -1,0 +1,100 @@
+@import "../base";
+
+#link-container {
+    width: 800px;
+
+    #link-wrapper{
+        background-color: #00000042;
+        padding: 20px 10px;
+        margin-top: 25px;
+        border-radius: 10px;
+
+        .title{
+            font-weight: 600;
+            font-size: 1.4em;
+        }
+    }
+
+    #link-list-container{
+        .link {
+            background-color: #ffffff1e;
+            border: 1px solid #7979798f;
+            backdrop-filter: blur(5px);
+
+            margin-top: 25px;
+            border-radius: 20px;
+            list-style-type: none;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+
+            .link-name-preview {
+                font-weight: 800;
+                font-size: 1.5em;
+            }
+
+            .right-panel{
+                display: flex;
+                gap: 20px;
+                align-items: center;
+
+                .click-to-edit {
+                    font-size: 0.9em;
+                    color: #c7c7c7;
+                }
+
+                .remove-link-button {
+                    padding: 8px 10px;
+                    width: fit-content;
+                    height: fit-content;
+                
+                    background-color: rgba(255, 0, 0, 0.26);
+                    color: $color-red;
+                    border: 2px solid $color-red;
+                    border-radius: 10px;
+                }
+                
+                .remove-link-button:hover {
+                    cursor: pointer;
+                    background-color: rgba(255, 0, 0, 0.664);
+                }   
+            }
+        }
+
+        .selected{
+            background-color: $color-theme;
+        }
+
+        .link:hover {
+            cursor: pointer;
+            background-color: #ffffff3f;
+        }
+    }
+
+    #create-new-link-panel{
+        margin-top: 20px;
+
+        width: 100%;
+        background-color: #ffffff42;
+        padding: 20px;
+        border-radius: 20px;
+
+        .title{
+            font-size: 1.2em;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            gap: 10px;
+            display: flex;
+        }
+    }
+
+    @media (max-width: 1100px){
+        width: 100%;
+    }
+}

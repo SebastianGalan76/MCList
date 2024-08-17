@@ -1,0 +1,48 @@
+@import "../base";
+
+#server-wrapper {
+    width: 800px;
+
+    .basic-data{
+        display: flex;
+        gap: 10px;
+    }
+
+    #password-panel{
+        margin-top: 35px;
+        padding: 20px;
+        background-color: $color-dark;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-radius: 15px;
+
+        .title{
+            font-weight: 700;
+        }
+
+        .update-button{
+            width: fit-content;
+            padding: 15px 30px;
+        }
+    }
+
+    .update-button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 15px;
+        background-color: $color-theme;
+        border-radius: 10px;
+    }
+
+    .update-button:hover{
+        cursor: pointer;
+        background-color: $color-theme-dark;
+    }
+
+    @media (max-width: 1100px) {
+        width: 100%;
+    }
+}

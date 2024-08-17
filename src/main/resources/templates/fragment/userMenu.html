@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<body>
+    <div th:fragment="menuFragment">
+        <div id="aside-menu">
+            <div class="user-panel">
+                <span class="login" th:text="${user.login}"></span>
+            </div>
+
+            <div class="menu">
+                <div class="title">MENU</div>
+                <a href="/user/profile">
+                    <li>Podstawowe dane</li>
+                </a>
+                <a href="/user/server">
+                    <li>Serwery</li>
+                </a>
+                <a href="/user/banner">
+                    <li>Banery reklamowe</li>
+                </a>
+                <a href="/auth/logout">
+                    <li>Wyloguj</li>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

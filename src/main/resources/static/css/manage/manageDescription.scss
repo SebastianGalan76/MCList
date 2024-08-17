@@ -1,0 +1,9 @@
+@import "../base";
+
+#description-container {
+    width: 800px;
+
+    #description-editor{
+        background-color: $color-dark;
+    }
+}

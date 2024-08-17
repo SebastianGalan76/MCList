@@ -1,0 +1,374 @@
+@import "../base";
+
+#staff-container {
+    width: 800px;
+
+    #rank-wrapper{
+        background-color: #00000042;
+        padding: 20px 10px;
+        margin-top: 25px;
+        border-radius: 10px;
+
+        .title{
+            font-weight: 600;
+            font-size: 1.4em;
+        }
+    }
+
+    #rank-container {
+        .rank {
+            background-color: #ffffff1e;
+            border: 1px solid #7979798f;
+            backdrop-filter: blur(5px);
+
+            margin-top: 25px;
+            border-radius: 20px;
+            list-style-type: none;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+
+            .rank-name {
+                font-weight: 800;
+                font-size: 1.5em;
+            }
+            .click-to-edit {
+                font-size: 0.9em;
+                color: #c7c7c7;
+            }
+        }
+
+        .rank:hover {
+            cursor: pointer;
+            background-color: #ffffff3f;
+        }
+    }
+
+    #link-container{
+        .link {
+            background-color: #ffffff1e;
+            border: 1px solid #7979798f;
+            backdrop-filter: blur(5px);
+
+            margin-top: 25px;
+            border-radius: 20px;
+            list-style-type: none;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+
+            .link-name-preview {
+                font-weight: 800;
+                font-size: 1.5em;
+            }
+
+            .right-panel{
+                display: flex;
+                gap: 20px;
+                align-items: center;
+
+                .click-to-edit {
+                    font-size: 0.9em;
+                    color: #c7c7c7;
+                }
+
+                .remove-link-button {
+                    padding: 8px 10px;
+                    width: fit-content;
+                    height: fit-content;
+                
+                    background-color: rgba(255, 0, 0, 0.26);
+                    color: $color-red;
+                    border: 2px solid $color-red;
+                    border-radius: 10px;
+                }
+                
+                .remove-link-button:hover {
+                    cursor: pointer;
+                    background-color: rgba(255, 0, 0, 0.664);
+                }   
+            }
+        }
+
+        .selected{
+            background-color: $color-theme;
+        }
+
+        .link:hover {
+            cursor: pointer;
+            background-color: #ffffff3f;
+        }
+    }
+
+    #create-new-rank-panel {
+        margin-top: 20px;
+
+        width: 100%;
+        background-color: #ffffff42;
+        padding: 20px;
+        border-radius: 20px;
+
+        .title{
+            font-size: 1.2em;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            gap: 10px;
+            display: flex;
+
+            .color-input-area{
+                @media (max-width: 1100px){
+                    width: 50px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1100px){
+        width: 100%;
+    }
+}
+
+#rank-editor-popup {
+    visibility: hidden;
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 500;
+    }
+
+    .content {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0) scale(0);
+        width: 800px;
+        z-index: 501;
+        border-radius: 10px;
+        transition: transform 0.15s ease;
+        
+        #staff-panel {
+            overflow: hidden;
+            background-color: rgb(66, 66, 66);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            
+            .color-input-area{
+                @media (max-width: 1100px){
+                    width: 50px;
+                }
+            }
+
+            #rank-name-preview{
+                background-color: $color-dark;
+                text-align: center;
+                padding: 10px 0;
+                font-size: 2em;
+                font-weight: 600;
+            }
+
+            #staff-editor {
+                margin-top: 10px;
+                border-radius: 20px;
+                margin: 10px;
+                background-color: rgba(255, 255, 255, 0.13);
+                padding: 20px;
+            }
+    
+            .form-container {
+                width: 100%;
+    
+                display: flex;
+                gap: 10px;
+    
+                padding: 20px;
+                background-color: $color-dark;
+                border-radius: 0 0 20px 20px;
+            }
+    
+            .player-panel {
+                .add-player-error {
+                    display: block;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+    
+                .player-form-container {
+                    display: flex;
+                    width: 100%;
+                    gap: 10px;
+                }
+    
+                .down-panel {
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+    
+                    .selected-player-wrapper {
+                        padding: 15px 50px;
+                        background-color: #00000042;
+                        border-radius: 20px;
+
+                        @media (max-width: 1100px){
+                            padding: 15px 15px;
+                        }
+                    }
+    
+                    .selected-player {
+                        .button {
+                            width: 100%;
+                            text-align: center;
+                            padding: 8px;
+                            margin-top: 10px;
+    
+                            border-radius: 10px;
+                        }
+    
+                        .edit-button {
+                            background-color: #4bc6ff7a;
+                            border: 2px solid #4bccff;
+                        }
+                        .edit-button:hover {
+                            cursor: pointer;
+                            background-color: #4bc6ffc2;
+                        }
+    
+                        .player {
+                            background-color: transparent;
+
+                            .head-src{
+                                @media (max-width: 1100px){
+                                    width: 80px;
+                                    height: 80px;
+                                }
+                            }
+                        }
+                    }
+                }
+    
+                .players-container {
+                    padding: 10px;
+                    display: flex;
+                    gap: 20px;
+                    border-radius: 10px;
+                    background-color: rgba(255, 255, 255, 0.164);
+    
+                    padding-bottom: 30px;
+                    width: 100%;
+    
+                    overflow: hidden;
+                    overflow-x: auto;
+    
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-top: 10px;
+    
+                    .selected {
+                        background-color: $color-theme !important;
+                    }
+                }
+    
+                .player {
+                    padding: 10px;
+                    background-color: $color-dark;
+                    border-radius: 10px;
+    
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+    
+                    align-items: center;
+                    position: relative;
+    
+                    .head {
+                        border-radius: 10px;
+                        overflow: hidden;
+    
+                        img {
+                            width: 120px;
+                            height: 120px;
+                        }
+                    }
+    
+                    .nick {
+                        text-align: center;
+                        font-weight: 600;
+                    }
+    
+                    .links{
+                        width: 100%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-around;
+                    }
+                }
+            }
+    
+            .social-links-form-container {
+                overflow: auto;
+                flex-grow: 1;
+    
+                .input-area {
+                    margin-top: 5px;
+                    height: 40px;
+                    background-color: #00000042;
+                    border: 1px solid $color-theme;
+    
+                    input {
+                        height: 36px;
+                    }
+                }
+    
+                .header {
+                    font-weight: 800;
+                    padding: 10px 20px;
+                }
+            }
+    
+            .remove-button{
+                background-color: rgb(153, 51, 51);
+                border: 2px solid $color-red;
+                border-radius: 10px;
+                color: $color-red;
+    
+                padding: 0 20px;
+    
+                display: flex;
+                align-items: center;
+    
+                transition: all 0.2s ease;
+            }
+            .remove-button:hover{
+                cursor: pointer;
+                background-color: rgb(190, 45, 45);
+            }
+
+            #remove-player-button{
+                transition: none !important;
+            }
+        }
+        
+        @media (max-width: 1100px){
+            width: 100%;
+        }
+    }
+}
+
+#rank-editor-popup.active {
+    visibility: visible;
+
+    .content {
+        transform: translate(-50%, 0) scale(1);
+    }
+}

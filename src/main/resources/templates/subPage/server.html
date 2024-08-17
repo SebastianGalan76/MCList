@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title th:text="'Serwer '+ ${server.name.name} + ' | MC-List.pl'"></title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/subPage/server.css">
+    <link rel="stylesheet" href="/css/quillEditor.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/fragment/header.css">
+    <link rel="stylesheet" href="/css/fragment/footer.css">
+    <link rel="stylesheet" href="/css/fragment/serverPreview.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <script src="/js/server/panelManager.js" defer></script>
+    <script type="module" src="/js/copyToClipboard.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>
+</head>
+
+<body>
+    <div class="popup" id="rated-successfully-popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <i class="fa-solid fa-circle-check header-icon"></i>
+
+            <span class="text">
+                Dziękujemy za przesłanie swojej oceny naszego serwera.<br>
+                Twoja ocena jest dla nas niezwykle ważna.
+            </span>
+
+            <a th:href="@{/server/{ip}(ip=${server.ip})}">
+                <div class="action-btn">OK</div>
+            </a>
+        </div>
+    </div>
+
+    <div id="vote-popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="header">
+                <div class="title">❤️ Głosowanie</div>
+                <div id="close-vote-popup" onclick="hideVotePopup()"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+
+            <div class="container">
+                <div class="input-area">
+                    <input id="input-vote-nick" type="text" placeholder="Nick" maxlength="256">
+                    <div class="icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="error" id="vote-error"></div>
+                <div class="vote-button" onclick="vote()">Zagłosuj</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rate-server-popup">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="header">
+                <div class="title">
+                    Oceń serwer
+                </div>
+                <span>
+                    Twoja opinia dla Administracji serwera jest niezwykle ważna! Aby mogli ciągle doskonalić swoje
+                    usługi, prosimy o uczciwe i rzetelne ocenienie serwera.
+                </span>
+
+                <div id="close-rate-server-popup"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+
+            <div id="rating-container">
+
+            </div>
+
+            <div id="error-message" class="center error">
+
+            </div>
+
+            <div class="save-button center" id="save-ratings-button">
+                Prześlij ocenę
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragment/header :: headerFragment}"></div>
+
+    <div id="banner" th:if="${server.banner != null}">
+        <img th:src="@{${server.banner}}">
+    </div>
+
+    <div id="page-wrapper" class="center">
+        <section id="container">
+            <div id="server-preview" class="panel">
+                <div class="logo">
+                    <img class="logo-src">
+                </div>
+                <div class="middle-panel">
+                    <h1 class="address-value">
+
+                    </h1>
+                    <div class="motd">
+                        <div class="motd">
+
+                        </div>
+                    </div>
+                    <div class="tag-container">
+                        <div class="tag mode-tag" style="display: none;">
+                            <div class="icon">
+                                <i class="fa-solid fa-dice-d6"></i>
+                            </div>
+                            <div class="content">
+
+                            </div>
+                        </div>
+
+                        <div class="tag version-tag" style="display: none;">
+                            <div class="icon">
+                                <i class="fa-solid fa-code-branch"></i>
+                            </div>
+                            <div class="content">
+
+                            </div>
+                        </div>
+
+                        <div class="tag mods-tag" style="display: none;">
+                            <div class="icon">
+                                <i class="fa-solid fa-parachute-box"></i>
+                            </div>
+                            <div class="content">
+                                Mody
+                            </div>
+                        </div>
+
+                        <div class="tag premium-tag" style="display: none;">
+                            <div class="icon">
+                                <i class="fa-solid fa-medal"></i>
+                            </div>
+                            <div class="content">
+                                Premium
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="statistic-container">
+                    <div class="online statistic">
+                        <div class="icon" title="Ilość graczy">🟢</div><span class="online-value">0</span>
+                    </div>
+                    <div class="votes statistic">
+                        <div class="icon" title="Ilość głosów">❤️</div><span class="vote-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="button-panel" class="panel action-buttons-container">
+                <div class="button vote" onclick="showVotePopup()">Zagłosuj</div>
+                <a th:href="'/server/'+ ${server.ip} +'/promote'">
+                    <div class="button promote">Promuj</div>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage'" th:if="${role != null}">
+                    <div class="button manage">Zarządzaj</div>
+                </a>
+                <a th:href="'/server/'+ ${server.id} +'/take'" th:if="${server.serverUserRoles.size() == 0}">
+                    <div class="button manage">Przejmij</div>
+                </a>
+            </div>
+
+            <div id="link-panel" class="panel" th:if="${server.links.size() > 0}">
+
+            </div>
+
+            <div id="main-container" class="panel">
+                <div id="button-container">
+                    <div class="button" onclick='showContent(this, "information-main-container")'>Informacje</div>
+                    <div class="button selected" onclick='showContent(this, "description-main-container")'
+                        th:if="${server.description != null and server.description.length > 0}">Opis</div>
+                    <div class="button" onclick='showContent(this, "staff-main-container")'
+                        th:if="${server.staff != null and server.staff.size() > 0}">Administracja
+                    </div>
+                    <div class="button" onclick='showContent(this, "subservers-main-container")'
+                        th:if="${server.subServers != null and server.subServers.size() > 0}">Tryby</div>
+                    <div class="button" onclick='showContent(this, "statistic-main-container")'>Statystyki</div>
+                    <div class="button" onclick='showContent(this, "ratings-main-container")'>Oceny</div>
+                </div>
+
+                <div th:style="'display:' + (${server.description != null and server.description.length > 0} ? 'none' : 'block')"
+                    class="main-container-content" id="information-main-container">
+                    <h1 class="content-header">Informacje</h1>
+
+                    <span class="info-con"><span class="h">Adres: </span><span
+                            th:text="${server.name.name}"></span><br></span>
+                    <span class="info-con" th:if="${server.port > 0}"><span class="h">Port: </span><span
+                            th:text="${server.port}"></span>
+                        <br></span>
+
+                    <span class="info-con" th:if="${server.versions.size() > 0}"><span class="h">Wersja:</span> <span
+                            id="server-versions-info"></span> <br></span>
+                    <span class="info-con" th:if="${server.subServers.size() > 0 or server.mode != null}"><span
+                            class="h">Tryby:</span> <span id="server-modes-info"></span><br></span>
+                    <span class="info-con"><span class="h">Zaktualizowano:</span> <span
+                            id="server-refresh-time-info"></span><br></span>
+                    <span class="info-con"><span class="h">Dodano:</span> <span
+                            id="server-created-time-info"></span><br></span>
+                </div>
+
+                <div th:style="'display:' + (${server.description != null and server.description.length > 0} ? 'block' : 'none')"
+                    class="main-container-content ql-snow" id="description-main-container">
+                    <article id="server-description" class="ql-editor">
+
+                    </article>
+                </div>
+
+                <div style="display: none;" class="main-container-content" id="staff-main-container"
+                    th:if="${server.staff != null and server.staff.size() > 0}">
+                    <h1 class="content-header">Administracja</h1>
+
+                    <div class="staff-rank" th:each="entry: ${server.staff}">
+                        <div class="name" th:text="${entry.name}" th:style="'color: ' + ${entry.color} + ';'"></div>
+
+                        <div class="players-container scrollable scrollable-horizontal center">
+                            <div class="player" th:each="player: ${entry.players}">
+                                <div class="head">
+                                    <img th:src="'https://minotar.net/avatar/' + ${player.nick}">
+                                </div>
+                                <div class="nick" th:text="${player.nick}">
+
+                                </div>
+                                <div class="links">
+                                    <div th:if="${player.discord.length() > 0}">
+                                        <a href="javascript:void(0)" th:attr="data-copy=${player.discord}"
+                                            onclick="copyToClipboard(this)">
+                                            <i class="fa-brands fa-discord"></i>
+                                        </a>
+                                    </div>
+                                    <div th:if="${player.tiktok.length > 0}">
+                                        <a th:href="${player.tiktok}" target="_blank">
+                                            <i class="fa-brands fa-tiktok"></i>
+                                        </a>
+                                    </div>
+                                    <div th:if="${player.instagram.length > 0}">
+                                        <a th:href="${player.instagram}" target="_blank">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                    </div>
+                                    <div th:if="${player.youtube.length > 0}">
+                                        <a th:href="${player.youtube}" target="_blank">
+                                            <i class="fa-brands fa-youtube"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: none;" class="main-container-content" id="statistic-main-container">
+                    <h1 class="content-header">Statystyki</h1>
+                    <div class="chart" style="margin-top: 30px;">
+                        <div class="header">Gracze Online (24h)</div>
+                        <canvas id="online-player-chart" height="80"></canvas>
+                    </div>
+
+                    <div class="chart" style="margin-top: 30px;">
+                        <div class="header">Gracze Online (7d)</div>
+                        <canvas id="daily-player-chart-7" height="80"></canvas>
+                    </div>
+
+                    <div class="chart" style="margin-top: 30px;">
+                        <div class="header">Szczytowa liczba graczy (30d)</div>
+                        <canvas id="daily-player-chart-30" height="80"></canvas>
+                    </div>
+
+                    <div class="chart" style="margin-top: 30px;">
+                        <div class="header">Szczytowa liczba graczy (1y)</div>
+                        <canvas id="daily-player-chart-365" height="80"></canvas>
+                    </div>
+                </div>
+
+                <div style="display: none;" class="main-container-content" id="subservers-main-container">
+                    <h1 class="content-header">Tryby</h1>
+
+                    <div id="subservers-container" class="center">
+
+                    </div>
+                </div>
+
+                <div style="display: none;" class="main-container-content ratings-global" id="ratings-main-container">
+                    <div class="ratings-main overall-ratings-container">
+                        <div class="header">
+                            <div class="title">
+                                Ogólna ocena
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="left-panel">
+                                <lottie-player id="loading-animation" src="/animation/star.json"
+                                    background="transparent" speed="1" loop autoplay></lottie-player>
+                                <span class="rating"><span class="overall-rating"></span>/5.0</span>
+                            </div>
+                            <div class="right-panel categories-container">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ratings-categories">
+
+                    </div>
+
+                    <a href="/auth/signIn">
+                        <div class="sign-in-to-rate-button center" th:if="${user==null}" style="margin-top: 150px;">
+                            Zaloguj się, aby ocenić
+                        </div>
+                    </a>
+                    <a>
+                        <div class="rate-button center" th:if="${user!=null}" style="margin-top: 150px;">
+                            Oceń serwer
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="panel chart" id="statistic-main">
+                <div class="header">Gracze Online (24h)</div>
+                <canvas id="online-player-chart-down-panel" height="80"></canvas>
+            </div>
+
+            <div class="panel ratings-global overall-ratings-container" id="ratings-main">
+                <div class="header">
+                    <div class="title">
+                        Ocena serwera
+                    </div>
+                    <div class="more-info-button" onclick='showContent(this, "ratings-main-container", true)'>
+                        Szczegóły
+                    </div>
+                </div>
+
+
+                <div class="container">
+                    <div class="left-panel">
+                        <lottie-player id="loading-animation" src="/animation/star.json" background="transparent"
+                            speed="1" loop autoplay></lottie-player>
+                        <span class="rating"><span class="overall-rating">0</span>/5.0</span>
+                    </div>
+                    <div class="right-panel categories-container">
+
+                    </div>
+                </div>
+
+                <a href="/auth/signIn">
+                    <div class="sign-in-to-rate-button center" th:if="${user==null}">
+                        Zaloguj się, aby ocenić
+                    </div>
+                </a>
+                <a>
+                    <div class="rate-button center" th:if="${user!=null}">
+                        Oceń serwer
+                    </div>
+                </a>
+            </div>
+        </section>
+        <aside>
+            <div class="panel" id="ip-panel">
+                <div class="ip-address" th:text="${server.name.name}" th:attr="data-copy=${server.ip}"
+                    onclick="copyToClipboard(this)"></div>
+                <div class="copy-info">Kliknij, aby skopiować</div>
+            </div>
+            <div class="panel action-buttons-container" id="button-panel-aside">
+                <div class="button vote" onclick="showVotePopup()">Zagłosuj</div>
+                <a th:href="'/server/'+ ${server.ip} +'/promote'">
+                    <div class="button promote">Promuj</div>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage'" th:if="${role != null}">
+                    <div class="button manage">Zarządzaj</div>
+                </a>
+                <a th:href="'/server/'+ ${server.id} +'/take'" th:if="${server.serverUserRoles.size() == 0}">
+                    <div class="button manage">Przejmij</div>
+                </a>
+            </div>
+            <div class="panel" id="link-panel-aside" th:if="${server.links.size() > 0}">
+                <div class="title">Linki</div>
+            </div>
+            <a th:href="'/server/'+ ${server.id} +'/report'">
+                <div id="report-button" class="center">
+                    Zgłoś serwer
+                </div>
+            </a>
+        </aside>
+    </div>
+    <div th:replace="~{fragment/footer :: footerFragment}"></div>
+</body>
+<template id="template-link">
+    <a class="server-link" target="_blank">
+        <div class="icon">
+        </div>
+        <div class="name">
+            Strona główna
+        </div>
+    </a>
+</template>
+<template id="ratings-template">
+    <div class="ratings-main">
+        <div class="header margin-top">
+            <div class="title">
+                Ogólna ocena
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="left-panel">
+                <lottie-player id="loading-animation" src="/animation/star.json" background="transparent" speed="1" loop
+                    autoplay></lottie-player>
+                <span class="rating"><span class="overall-rating"></span>/5.0</span>
+            </div>
+            <div class="right-panel">
+                <div class="rating rating-5">
+                    <div class="up-panel">
+                        <div class="title"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i
+                                class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i
+                                class="fa-solid fa-star"></i></div>
+                        <div class="rating-value">
+
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rating rating-4">
+                    <div class="up-panel">
+                        <div class="title"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i
+                                class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                        <div class="rating-value">
+
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rating rating-3">
+                    <div class="up-panel">
+                        <div class="title"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i
+                                class="fa-solid fa-star"></i></div>
+                        <div class="rating-value">
+
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rating rating-2">
+                    <div class="up-panel">
+                        <div class="title"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                        <div class="rating-value">
+
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rating rating-1">
+                    <div class="up-panel">
+                        <div class="title"><i class="fa-solid fa-star"></i></div>
+                        <div class="rating-value">
+
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="ratings-template-inverse">
+    <div class="ratings-main">
+        <div class="header margin-top">
+            <div class="title">
+                Ogólna ocena
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="right-panel">
+                <div class="rating rating-5">
+                    <div class="up-panel">
+                        <div class="rating-value">
+
+                        </div>
+                        <div class="title"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i
+                                class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i
+                                class="fa-solid fa-star"></i></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="margin-left: auto;">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rating rating-4">
+                    <div class="up-panel">
+                        <div class="rating-value">
+
+                        </div>
+                        <div class="title"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i
+                                class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="margin-left: auto;">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rating rating-3">
+                    <div class="up-panel">
+                        <div class="rating-value">
+
+                        </div>
+                        <div class="title"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i
+                                class="fa-solid fa-star"></i></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="margin-left: auto;">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rating rating-2">
+                    <div class="up-panel">
+                        <div class="rating-value">
+
+                        </div>
+                        <div class="title"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="margin-left: auto;">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rating rating-1">
+                    <div class="up-panel">
+                        <div class="rating-value">
+
+                        </div>
+                        <div class="title"><i class="fa-solid fa-star"></i></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="margin-left: auto;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="left-panel">
+                <lottie-player id="loading-animation" src="/animation/star.json" background="transparent" speed="1" loop
+                    autoplay></lottie-player>
+                <span class="rating"><span class="overall-rating"></span>/5.0</span>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="rating-template">
+    <div class="rating">
+        <div class="rating-header">
+            <div class="name">
+
+            </div>
+            <div class="description">
+
+            </div>
+        </div>
+        <div class="stars center">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+        </div>
+    </div>
+</template>
+<template id="rating-category-template">
+    <div class="rating">
+        <div class="up-panel">
+            <div class="title"></div>
+            <div class="rating-value">
+                0
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress">
+
+            </div>
+        </div>
+    </div>
+</template>
+<template id="subserver-template">
+    <div class="subserver">
+        <div class="title"></div>
+
+        <div class="tag-container">
+            <div class="tag mode-tag" style="display: none;">
+                <div class="icon">
+                    <i class="fa-solid fa-dice-d6"></i>
+                </div>
+                <div class="content">
+
+                </div>
+            </div>
+
+            <div class="tag version-tag" style="display: none;">
+                <div class="icon">
+                    <i class="fa-solid fa-code-branch"></i>
+                </div>
+                <div class="content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script th:inline="javascript" type="module" defer>
+    const user = /*[[${user}]]*/ null;
+
+    var mainDescription = /*[[${server != null ? server.description : ''}]]*/ '';
+    if (mainDescription != null) {
+        document.getElementById('server-description').innerHTML = mainDescription;
+    }
+
+    import { loadData } from './js/server/statisticChart.js';
+    var hourlyPlayerCounts = /*[[${server.hourlyPlayerCounts}]]*/ null;
+    var dailyPlayerCounts = /*[[${server.dailyPlayerCounts}]]*/ null;
+    loadData(hourlyPlayerCounts, dailyPlayerCounts);
+
+    import { loadSubservers } from './js/server/subServerLoader.js';
+    var subservers = /*[[${server.subServers}]]*/ null;
+    loadSubservers(subservers);
+
+    import { loadLinks } from './js/server/linkLoader.js';
+    var links = /*[[${server.links}]]*/ null;
+    loadLinks(links);
+
+    import { loadServerPreview } from './js/server/serverPreviewLoader.js';
+    var server = /*[[${server}]]*/ null;
+    loadServerPreview(server);
+
+    import { loadRatingCategories } from './js/server/rateServerManager.js';
+    const categoriesJson = /*[[${categories}]]*/ null;
+    loadRatingCategories(categoriesJson, user, server);
+
+    import { loadRatings } from './js/server/ratingsLoader.js';
+    const playerRatings = /*[[${ratings}]]*/[];
+    loadRatings(playerRatings, categoriesJson);
+
+    if (server.versions != null && server.versions.length > 0) {
+        const versionInfo = document.getElementById('server-versions-info');
+
+        const sortedArray = server.versions.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+
+        const minValue = sortedArray[0];
+        const maxValue = sortedArray[sortedArray.length - 1];
+
+        if (minValue.id == maxValue.id) {
+            versionInfo.innerHTML = minValue.name;
+        }
+        else {
+            versionInfo.innerHTML = minValue.name + " - " + maxValue.name;
+        }
+    }
+
+    import { convertDate } from './js/utils.js';
+
+    const modesInfo = document.getElementById('server-modes-info');
+    if (server.subServers.length > 0) {
+        var modes = new Set();
+
+        server.subServers.forEach(subServer => {
+            if (subServer.mode != null) {
+                modes.add(subServer.mode.name);
+            }
+        })
+        var modesString = "";
+        modes.forEach(modeName => {
+            modesString += modeName + ", ";
+        })
+
+        modesInfo.innerHTML = modesString;
+    }
+    else if (server.mode != null) {
+        modesInfo.innerHTML = server.mode.name;
+    }
+
+
+    const refreshedAt = document.getElementById('server-refresh-time-info');
+    const refreshTime = server.nextRefreshAt;
+    let date = new Date(refreshTime);
+    date.setMinutes(date.getMinutes() - 30);
+    refreshedAt.innerHTML = convertDate(date.toISOString());
+
+    const createdAt = document.getElementById('server-created-time-info');
+    createdAt.innerHTML = convertDate(server.createdAt);
+
+</script>
+
+<script th:inline="javascript">
+    const votePopup = document.getElementById('vote-popup');
+    const voteError = document.getElementById('vote-error');
+
+    async function vote() {
+        const voteDto = {
+            serverId: /*[[${server.id}]]*/ null,
+            nick: document.getElementById('input-vote-nick').value
+        }
+
+        try {
+            const response = await fetch('/vote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(voteDto)
+            });
+
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+
+                voteError.innerHTML = responseJson.message;
+            }
+        } catch (error) {
+            voteError.innerHTML = error;
+        }
+    }
+
+    function showVotePopup() {
+        votePopup.classList.add('active');
+        voteError.innerHTML = null;
+    }
+
+    function hideVotePopup() {
+        votePopup.classList.remove('active');
+    }
+</script>
+
+<script>
+    function copyToClipboard(element) {
+        const text = element.getAttribute('data-copy');
+
+        const tempInput = document.createElement('input');
+        tempInput.style.position = 'absolute';
+        tempInput.style.left = '-9999px';
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        document.execCommand('copy');
+
+        document.body.removeChild(tempInput);
+
+        alert('Skopiowano wartość: ' + text);
+    }
+</script>
+
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Banery reklamowe- Lista serwerów minecraft | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/subPage/banner.css">
+    <link rel="stylesheet" href="/css/fragment/header.css">
+    <link rel="stylesheet" href="/css/fragment/footer.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragment/header :: headerFragment}"></div>
+
+    <div class="header">
+        <a href="/user/banner">
+            <div class="button">Moje banery</div>
+        </a>
+        <h1>Zakup baner reklamowy</h1>
+        <br><br>
+        <h3>Wybierz typ</h3>
+    </div>
+    <div id="banner-container-big" class="center">
+        <div class="banner-preview" onclick="selectBanner(this, 1)">
+            <div class="banner">
+                <img id="big-banner-preview" class="banner-preview-img">
+            </div>
+        </div>
+        <div class="banner">
+            <img src="/img/banner-big-preview.png">
+        </div>
+    </div>
+
+    <div id="banner-container-small" class="center">
+        <div class="banner-preview" onclick="selectBanner(this, 2)">
+            <div class="banner">
+                <img id="small-banner-preview" class="banner-preview-img">
+            </div>
+        </div>
+
+        <div class="banner">
+            <img src="/img/banner-small-preview.png">
+        </div>
+    </div>
+    <div id="form-container" class="center">
+        <div class="input-area">
+            <input id="link-input" type="text" placeholder="Docelowy link (np. sklep, strona główna)" maxlength="256">
+            <div class="icon">
+                <i class="fa-solid fa-link"></i>
+            </div>
+        </div>
+
+        <div class="file-input-container center">
+            <div class="file-input">
+                <button type="button">Wybierz plik</button>
+                <input type="file" id="file-input">
+            </div>
+            <span class="file-name" id="file-name">Nie wybrano pliku</span>
+
+            <div class="icon">
+                <i class="fa-solid fa-file"></i>
+            </div>
+        </div>
+
+        <div class="error" id="error-response"></div>
+
+        <div class="button" onclick="uploadBanner(this)">Prześlij do weryfikacji</div>
+    </div>
+    <div class="section center">
+        <h2>Metody płatności</h2>
+        <span class="center">BLIK, PayPal, Przelew</span>
+    </div>
+    <div class="section center">
+        <h2>Etapy zakupu</h2>
+        <ol>
+            <li>Wybierasz wielkość.</li>
+            <li>Wypełniasz formularz i przesyłasz dane do weryfikacji.</li>
+            <li>Administrator strony weryfikuje grafikę oraz link.</li>
+            <li>Po akceptacji możesz uiścić opłatę i aktywować baner w zakładce "Moje banery".</li>
+        </ol>
+    </div>
+
+    <div th:replace="~{fragment/footer :: footerFragment}"></div>
+</body>
+
+<script>
+    var selectedBanner = 0;
+
+    const banners = document.querySelectorAll('.banner-preview');
+    const bannerPreviews = document.querySelectorAll('.banner-preview-img');
+
+    const errorResponse = document.getElementById('error-response');
+    const reader = new FileReader();
+    var file = null;
+
+    function selectBanner(view, id) {
+        selectedBanner = id;
+
+        banners.forEach(banner =>
+            banner.classList.remove('selected')
+        );
+
+        view.classList.add('selected');
+        changePreview();
+    }
+
+    async function uploadBanner(button) {
+        const fileInput = document.getElementById('file-input');
+        const linkInput = document.getElementById('link-input');
+
+        const file = fileInput.files[0];
+        const link = linkInput.value;
+
+        if (selectedBanner == 0) {
+            errorResponse.innerHTML = 'Wybierz rozmiar';
+            return;
+        }
+
+        if (file == null) {
+            errorResponse.innerHTML = 'Prześlij plik graficzny. Akceptujemy jedynie rozszerzenia jpeg, png, i gif';
+            return;
+        }
+        else {
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', "image/webp"];
+            if (!allowedTypes.includes(file.type)) {
+                errorResponse.innerHTML = 'Akceptujemy jedynie rozszerzenia jpeg, png, i gif';
+                return;
+            }
+
+            if (file.size > 4 * 1024 * 1024) {
+                errorResponse.innerHTML = 'Rozmiar pliku jest za duży';
+                return;
+            }
+        }
+        errorResponse.innerHTML = '';
+        var size = "SMALL";
+        if (selectedBanner == 1) {
+            size = "BIG";
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('link', link);
+        formData.append('size', size);
+
+        try {
+            const response = await fetch('/banner', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+                errorResponse.innerHTML = responseJson.message;
+
+                if (responseJson.status == "OK") {
+                    button.style.display = "none";
+                }
+            }
+        } catch (error) {
+            errorResponse.innerHTML = error.message;
+        }
+    }
+
+    function changePreview() {
+        bannerPreviews.forEach(preview =>
+            preview.src = ''
+        );
+
+        if (file && file.type.startsWith('image/')) {
+            reader.onload = function (e) {
+                if (selectedBanner == 1) {
+                    bigBannerPreview.src = e.target.result;
+                }
+                else if (selectedBanner == 2) {
+                    smallBannerPreview.src = e.target.result;
+                }
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            file = null;
+            bigBannerPreview.src = '';
+            smallBannerPreview.src = '';
+        }
+    }
+
+    const bigBannerPreview = document.getElementById('big-banner-preview');
+    const smallBannerPreview = document.getElementById('small-banner-preview');
+
+    document.getElementById('file-input').addEventListener('change', function (event) {
+        file = event.target.files[0];
+        const fileName = event.target.files.length > 0 ? file.name : 'Nie wybrano pliku';
+        document.getElementById('file-name').textContent = fileName;
+
+        changePreview();
+    });
+
+    document.querySelector('.file-input button').addEventListener('click', function () {
+        document.getElementById('file-input').click();
+    });
+</script>
+
+</html>

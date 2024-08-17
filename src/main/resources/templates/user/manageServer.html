@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Zarządzaj swoimi serwerami | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/user/manageServer.css">
+    <link rel="stylesheet" href="/css/manage/manageServer.css">
+    <link rel="stylesheet" href="/css/fragment/manageMenu.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="main-container">
+        <aside>
+            <div th:replace="~{fragment/userMenu :: menuFragment}"></div>
+            <div class="divider-line-vertical">
+            </div>
+        </aside>
+
+        <section id="container">
+            <div id="server-wrapper" class="center">
+                <h1 class="header">
+                    Twoje serwery
+                </h1>
+
+                <div id="server-container">
+
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+<template id="server-template">
+    <a class="link-href">
+        <div class="server item">
+            <div class="server-ip"></div>
+
+            <div class="right-panel">
+                <div class="role-name">Kliknij, aby zarządzać</div>
+            </div>
+        </div>
+    </a>
+</template>
+<script type="module" th:inline="javascript">
+    const serverTemplate = document.getElementById('server-template');
+    const serverContainer = document.getElementById('server-container');
+
+    const servers = /*[[${servers}]]*/[];
+    if (servers != null) {
+        servers.forEach(server => {
+            addServer(server);
+        });
+    }
+
+    function addServer(serverJson) {
+        const template = serverTemplate.content.cloneNode(true);
+        const serverElement = template.querySelector('.server');
+
+        const linkHref = template.querySelector('.link-href');
+        linkHref.href = '/server/' + serverJson.id + '/manage';
+
+        const email = serverElement.querySelector('.server-ip');
+        email.innerHTML = serverJson.ip;
+
+        serverContainer.appendChild(template);
+    }
+</script>
+
+</html>

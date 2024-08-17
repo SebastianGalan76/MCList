@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<!-- 
+<head>
+    <link rel="stylesheet" href="../../static/css/global.css">
+    <link rel="stylesheet" href="../../static/css/fragment/header.css">
+
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+</head>
+-->
+
+<body>
+    <header th:fragment="headerFragment">
+        <div class="wrapper">
+            <div class="left-panel">
+                <a href="/">
+                    <img class="logo" src="/img/logo.png">
+                </a>
+                <nav class="button-container">
+                    <ul>
+                        <a href="/add-new-server">
+                            <li class="add-server-button">Dodaj serwer</li>
+                        </a>
+                        <a href="/banners">
+                            <li class="buy-banner-button">Zakup Baner</li>
+                        </a>
+                        <li onclick="showRandomServer()">Losuj serwer</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="right-panel">
+                <div id="user-section">
+                    <div class="user-logged-in" th:if="${user!=null}">
+                        <a href="/user/profile"><span th:text="${user.login}"></span><i class="fa-solid fa-bars"></i></a>
+                    </div>
+                    <div class="user-not-logged-in">
+                        <a href="/auth/signIn" class="sign-in" th:if="${user==null}">
+                            Logowanie
+                        </a>
+                    </div>
+                </div>
+                <div id="menu-button" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </div>
+        <div class="divider-line-horizontal"></div>
+
+        <div class="right-panel-menu" id="right-panel-menu">
+            <div class="panel-menu">
+                <a href="/">
+                    <img class="logo center" src="/img/logo.png">
+                </a>
+
+                <nav class="button-container">
+                    <ul>
+                        <a href="/add-new-server">
+                            <li class="add-server-button">Dodaj serwer</li>
+                        </a>
+                        <a href="/banners">
+                            <li class="buy-banner-button">Zakup Baner</li>
+                        </a>
+                        <li>Nowe Edycje</li>
+                    </ul>
+                </nav>
+
+                <div class="user-logged-in center" th:if="${user!=null}">
+                    <span th:text="${user.login}"></span>
+                </div>
+                <div class="user-not-logged-in center">
+                    <a href="/auth/signIn" class="sign-in" th:if="${user==null}">
+                        Logowanie
+                    </a>
+                </div>
+            </div>
+
+            <div id="background" onclick="toggleMenu()">
+
+            </div>
+        </div>
+
+        <script>
+            const rightPanelMenu = document.getElementById('right-panel-menu');
+
+            function handleResize() {
+                if (window.innerWidth < 600) {
+                    rightPanelMenu.classList.remove('active');
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize();
+
+            function toggleMenu() {
+                rightPanelMenu.classList.toggle('active');
+            }
+        </script>
+
+        <script>
+            async function showRandomServer() {
+                try {
+                    const response = await fetch('/random', {
+                        method: 'GET'
+                    });
+
+                    if (!response.ok) {
+                        const errorResponse = await response.json();
+                        throw new Error(`Error: ${errorResponse.message}`);
+                    }
+                    else {
+                        const serverIp = await response.text();
+                        window.location.href = '/server/' + serverIp;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                }
+            }
+        </script>
+    </header>
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+@import "../base";
+
+.header {
+    text-align: center;
+
+    padding: 30px 0;
+    font-size: 1.3em;
+    font-weight: 500;
+
+    position: relative;
+
+    .button {
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        background-color: #ffffff0e;
+        padding: 10px 30px;
+        border: 1px solid #79797971;
+        border-radius: 10px;
+
+        @media (max-width: 800px) {
+            position: relative;
+            right: 0;
+            top: 0;
+
+            width: 80%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .button:hover {
+        background-color: $color-dark;
+        cursor: pointer;
+    }
+}
+
+#banner-container-big {
+    width: 1600px;
+    height: 350px;
+
+    background-color: $color-dark;
+    position: relative;
+
+    .banner-preview {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        z-index: 100;
+
+        .banner {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+            img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .banner {
+        width: 100%;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+
+    @media (max-width: 1600px) {
+        width: 100%;
+    }
+}
+
+#banner-container-small {
+    margin-top: 20px;
+
+    height: 120px;
+    width: 1200px;
+    background-color: $color-dark;
+    position: relative;
+
+    .banner-preview {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        z-index: 100;
+
+        .banner {
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+            img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .banner {
+        width: 100%;
+        max-height: 120px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        width: 100%;
+    }
+}
+
+.banner-preview:hover {
+    outline: 2px solid #79797971;
+    cursor: pointer;
+}
+
+.banner-preview.selected {
+    outline: 2px solid $color-theme;
+}
+#form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    width: 800px;
+    padding: 20px;
+    margin-top: 30px;
+
+    .button {
+        background-color: $color-theme;
+        padding: 10px 30px;
+        border-radius: 10px;
+        width: fit-content;
+        margin-left: auto;
+    }
+
+    .button:hover {
+        background-color: $color-theme-dark;
+        cursor: pointer;
+    }
+
+    @media (max-width: 800px) {
+        width: 100%;
+    }
+}
+
+.section {
+    width: 800px;
+    background-color: #ffffff0e;
+    padding: 20px;
+    margin-top: 50px;
+
+    h2 {
+        padding: 30px 0;
+        text-align: center;
+    }
+
+    ol {
+        padding: 0 30px;
+    }
+
+    @media (max-width: 800px) {
+        width: 100%;
+    }
+}
+
+.link {
+    color: $color-theme;
+    font-weight: 600;
+}
+
+.link:hover {
+    color: $color-theme-dark;
+}

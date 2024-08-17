@@ -1,0 +1,151 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+#container {
+  width: 400px;
+  min-height: 100vh;
+  padding: 0 200px;
+  box-sizing: content-box;
+  background-color: rgba(131, 131, 131, 0.13);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#container #logo {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+#container #logo img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+#container #form-container {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+#container #form-container .header {
+  font-size: 1.2em;
+}
+#container #form-container .input-area {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border: 2px solid #f5f5f5;
+}
+#container #form-container .input-area input::-moz-placeholder {
+  color: #f5f5f5;
+}
+#container #form-container .input-area input::placeholder {
+  color: #f5f5f5;
+}
+#container #form-container .input-area .icon {
+  color: #f5f5f5;
+}
+#container #form-container #reset-password-text {
+  position: relative;
+  top: -15px;
+  text-align: right;
+}
+#container #footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+#container #footer #error-message {
+  display: block;
+  padding: 10px;
+  color: rgb(252, 99, 107);
+  text-align: center;
+}
+#container #footer button {
+  background-color: #e2a258;
+}
+#container #footer button:hover {
+  cursor: pointer;
+  background-color: #ce8e45;
+}
+#container #footer span {
+  margin-top: 5px;
+}
+#container #another-way {
+  width: 100%;
+  margin-top: 50px;
+}
+#container #another-way .header {
+  padding: 10px 0;
+  text-align: center;
+}
+#container #another-way .divider-line {
+  background: linear-gradient(90deg, hsla(35, 100%, 97%, 0.1), hsla(44, 100%, 92%, 0.5) 47.92%, hsla(35, 100%, 97%, 0.1));
+  width: 100%;
+  height: 2px;
+  margin-bottom: 10px;
+}
+#container #another-way #discord {
+  background-color: #7289da;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+#container #another-way #discord:hover {
+  cursor: pointer;
+  background-color: #4f67be;
+}
+#container .button {
+  padding: 16px 0;
+  border-radius: 10px;
+  background-color: #e2a258;
+  color: #f5f5f5;
+  font-weight: 600;
+  outline: none;
+  border: none;
+}
+@media (max-width: 900px) {
+  #container {
+    padding: 0 150px;
+  }
+}
+@media (max-width: 800px) {
+  #container {
+    padding: 0 100px;
+  }
+}
+@media (max-width: 700px) {
+  #container {
+    padding: 0 50px;
+    width: 100%;
+    min-width: 300px;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 400px) {
+  #container {
+    padding: 0 20px;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: #e2a258;
+  font-weight: 700;
+}
+
+.link:hover {
+  cursor: pointer;
+  color: #ce8e45;
+}/*# sourceMappingURL=authorization.css.map */

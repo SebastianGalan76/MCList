@@ -1,0 +1,96 @@
+#role-container {
+  width: 800px;
+}
+#role-container .info {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border-radius: 20px;
+}
+#role-container #role-description {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+#role-container #role-description .role {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border-radius: 20px;
+  padding: 20px;
+  border: 2px solid #e2a258;
+  flex-grow: 1;
+}
+#role-container #role-description .role .title {
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 25px;
+}
+#role-container #role-description .role ul {
+  list-style-type: none;
+}
+#role-container #role-wrapper {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  padding: 20px 10px;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+#role-container #role-wrapper .title {
+  font-weight: 600;
+  font-size: 1.4em;
+}
+#role-container #created-role-container .role {
+  background-color: rgba(255, 255, 255, 0.1176470588);
+  border: 1px solid rgba(121, 121, 121, 0.5607843137);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  margin-top: 25px;
+  border-radius: 20px;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+#role-container #created-role-container .role .user-login {
+  font-weight: 800;
+  font-size: 1.2em;
+}
+#role-container #created-role-container .role .right-panel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#role-container #created-role-container .role .right-panel .remove-button {
+  color: rgb(252, 99, 107);
+}
+#role-container #created-role-container .role:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2470588235);
+}
+#role-container #create-new-role-panel {
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2588235294);
+  padding: 20px;
+  border-radius: 20px;
+}
+#role-container #create-new-role-panel .title {
+  font-size: 1.2em;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+#role-container #create-new-role-panel .form-container {
+  width: 100%;
+  gap: 10px;
+  display: flex;
+}
+@media (max-width: 1100px) {
+  #role-container #create-new-role-panel .form-container .color-input-area {
+    width: 50px;
+  }
+}
+@media (max-width: 1100px) {
+  #role-container {
+    width: 100%;
+  }
+}/*# sourceMappingURL=manageRole.css.map */

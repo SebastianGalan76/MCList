@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Lista serwerów minecraft | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/fragment/header.css">
+    <link rel="stylesheet" href="/css/fragment/footer.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <script src="/js/modeManager.js" type="module" defer></script>
+    <script src="/js/versionManager.js" type="module" defer></script>
+
+    <script src="/js/pageManager.js" type="module" defer></script>
+    <script src="/js/serverListManager.js" type="module" defer></script>
+    <script src="/js/searchServer.js" type="module" defer></script>
+</head>
+
+<body>
+    <div th:replace="~{fragment/header :: headerFragment}"></div>
+    <h1 class="center" style="margin-top: 20px; text-align: center;">Lista serwerów minecraft</h1>
+    <div id="banner-container" class="center" th:if="${bigBanner != null}">
+        <a class="banner" th:href="${bigBanner.link}" target="_blank">
+            <img th:src="${bigBanner.filePath}" alt="Baner reklamowy">
+        </a>
+    </div>
+
+    <section id="search-container" class="center">
+        <div class="row">
+            <div class="input-area">
+                <input id="name-input" type="text" placeholder="Nazwa serwera lub motd" maxlength="60">
+                <div class="icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+
+            <div class="button" id="search-server-button">
+                Szukaj
+            </div>
+        </div>
+
+        <div class="row row-half-container">
+            <div class="row-half">
+                <div class="input-area-select">
+                    <div id="mode-list-panel" class="item-list-panel" style="display: none;">
+                        <div class="item-list-wrapper scrollable scrollable-vertical">
+                            <div class="item-list-container" id="mode-list-container">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-container">
+                        <input id="mode-input" placeholder="Wybierz tryb serwera" type="text" maxlength="60"
+                            autocomplete="off">
+                        <div class="icon">
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+                    </div>
+
+                    <div class="selected-item-wrapper scrollable-horizontal scrollable">
+                        <div id="selected-mode-container" class="selected-item-container scrollable-container">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area-select">
+                    <div id="version-list-panel" class="item-list-panel" style="display: none;">
+                        <div class="item-list-wrapper scrollable scrollable-vertical">
+                            <div class="item-list-container" id="version-list-container">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-container">
+                        <input id="version-input" placeholder="Wybierz wersje serwera" type="text" maxlength="60"
+                            autocomplete="off">
+                        <div class="icon">
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+                    </div>
+
+                    <div class="selected-item-wrapper scrollable-horizontal scrollable">
+                        <div id="selected-version-container" class="selected-item-container scrollable-container">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkbox-container">
+                <div class="checkbox-area">
+                    <input type="checkbox" id="server-premium-checkbox">
+                    <label for="server-premium-checkbox">Premium</label>
+                </div>
+
+                <div class="checkbox-area">
+                    <input type="checkbox" id="server-mods-checkbox">
+                    <label for="server-mods-checkbox">Mody</label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="server-container" class="center">
+
+    </section>
+    <div id="page-container" class="center">
+
+    </div>
+
+    <div th:replace="~{fragment/footer :: footerFragment}"></div>
+</body>
+
+<template id="server-template">
+    <a class="link" href="">
+        <div class="server">
+            <div class="up-panel">
+                <div class="address" title="Kliknij, aby skopiować adres">
+                    <span class="address-value"></span> <i class="fa-regular fa-copy"></i>
+                </div>
+
+                <div class="tag-container">
+                    <div class="tag mode-tag" style="display: none;">
+                        <div class="icon">
+                            <i class="fa-solid fa-dice-d6"></i>
+                        </div>
+                        <div class="content">
+
+                        </div>
+                    </div>
+
+                    <div class="tag version-tag" style="display: none;">
+                        <div class="icon">
+                            <i class="fa-solid fa-code-branch"></i>
+                        </div>
+                        <div class="content">
+
+                        </div>
+                    </div>
+
+                    <div class="tag mods-tag" style="display: none;">
+                        <div class="icon">
+                            <i class="fa-solid fa-parachute-box"></i>
+                        </div>
+                        <div class="content">
+                            Mody
+                        </div>
+                    </div>
+
+                    <div class="tag premium-tag" style="display: none;">
+                        <div class="icon">
+                            <i class="fa-solid fa-medal"></i>
+                        </div>
+                        <div class="content">
+                            Premium
+                        </div>
+                    </div>
+                </div>
+
+                <div class="promotion statistic" title="Punkty promowania"><span class="promotion-value"></span>
+                    <div class="icon">👑</div>
+                </div>
+            </div>
+            <div class="down-panel">
+                <div class="logo">
+                    <img class="logo-src">
+                </div>
+                <div class="motd">
+
+                </div>
+                <div class="statistic-container">
+                    <div class="online statistic" title="Gracze online"><span class="online-value"></span> 🟢</div>
+                    <div class="votes statistic" title="Ilość głosów"><span class="vote-value"></span> ❤️</div>
+                </div>
+            </div>
+        </div>
+    </a>
+</template>
+
+<template id="banner-small-template">
+    <div class="banner-small-container center">
+        <a class="banner" target="_blank">
+            <img class="banner-img-scr" alt="Baner reklamowy">
+        </a>
+    </div>
+</template>
+
+<script type="module" th:inline="javascript">
+    import { initializePageManager, refreshPageContainer } from "./js/pageManager.js";
+    import { loadServers } from "./js/serverListManager.js";
+    import { loadBanners } from "./js/smallBannerManager.js";
+
+    const smallBanners = /*[[${smallBanners}]]*/[];
+    loadBanners(smallBanners);
+
+    initializePageManager(document.getElementById("page-container"), loadServers);
+    loadServers();
+
+</script>
+
+</html>

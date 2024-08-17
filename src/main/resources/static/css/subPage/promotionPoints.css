@@ -1,0 +1,60 @@
+#page-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 1400px;
+  margin-top: 25px;
+}
+#page-wrapper #container {
+  width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow: hidden;
+  padding-bottom: 250px;
+}
+#page-wrapper #container #main-container .header {
+  font-size: 2em;
+  text-align: center;
+  padding: 30px 0;
+}
+#page-wrapper #container #main-container #form-container {
+  margin-top: 50px;
+  width: 500px;
+}
+#page-wrapper #container #main-container #form-container .footer {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#page-wrapper #container #main-container #form-container .footer .submit-button {
+  width: 100%;
+  background-color: #e2a258;
+  padding: 15px 0;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+#page-wrapper #container #main-container #form-container .footer .submit-button:hover {
+  background-color: #ce8e45;
+  cursor: pointer;
+}
+#page-wrapper #container #main-container .response {
+  margin-top: 20px;
+}
+@media (max-width: 1450px) {
+  #page-wrapper {
+    width: 100%;
+  }
+}
+
+.link {
+  color: #e2a258;
+  font-weight: 600;
+}
+
+.link:hover {
+  color: #ce8e45;
+}/*# sourceMappingURL=promotionPoints.css.map */

@@ -1,0 +1,33 @@
+#server-wrapper {
+  width: 800px;
+}
+#server-wrapper #server-container .server {
+  background-color: rgba(255, 255, 255, 0.1176470588);
+  border: 1px solid rgba(121, 121, 121, 0.5607843137);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  margin-top: 25px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+#server-wrapper #server-container .server .server-ip {
+  font-weight: 800;
+  font-size: 1.2em;
+}
+#server-wrapper #server-container .server .right-panel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#server-wrapper #server-container .server:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.0470588235);
+}
+@media (max-width: 1100px) {
+  #server-wrapper {
+    width: 100%;
+  }
+}/*# sourceMappingURL=manageServer.css.map */

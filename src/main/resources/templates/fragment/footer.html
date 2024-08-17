@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<!--
+    <head>
+    <link rel="stylesheet" href="../../static/css/global.css">
+    <link rel="stylesheet" href="../../static/css/fragment/footer.css">
+
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+</head>
+-->
+
+<body>
+    <footer th:fragment="footerFragment">
+        <div class="divider-line-horizontal"></div>
+        <div class="container">
+            <div class="wrapper">
+                <div class="logo-wrapper">
+                    <img src="/img/logo.png">
+                </div>
+                <nav>
+                    <section class="footer-nav">
+                        <a href="/"><li class="footer-link">Strona Główna</li></a>
+                        <a href="/add-new-server"><li class="footer-link">Dodaj serwer</li></a>
+                        <a href="/banners"><li class="footer-link">Zakup baner</li></a>
+                        <a href="/rules"><li class="footer-link">Regulamin</li></a>
+                        <a href="/contact"><li class="footer-link">Kontakt</li></a>
+                        <a href="/privacy-policy"><li class="footer-link">Polityka prywatności</li></a>
+                        <a href="/rewards"><li class="footer-link">Nagrody za głosowanie</li></a>
+                    </section>
+                </nav>
+            </div>
+            <div class="footer-social-links">
+                <a href="https://discord.gg/AhEKtugFTW" target="_blank"><div class="social"><i class="fa-brands fa-discord"></i></div></a>
+            </div>
+        </div>
+        <div class="divider-line-horizontal"></div>
+        <div class="footer-info-down">
+            <h4>MC-List.pl &copy Lista serwerów minecraft</h4>
+        </div>
+    </footer>
+</body>
+
+</html>

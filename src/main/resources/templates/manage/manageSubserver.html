@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <title>Zarządzaj trybami | MC-List.pl</title>
+    <meta name="description"
+        content="Znajdź najlepsze serwery Minecraft w jednym miejscu! Aktualna lista serwerów Minecraft, podzieloną na kategorie, takie jak tryby gry, liczba graczy, wersje oraz modyfikacje. Odkryj nowe serwery i dołącz do gry już teraz!" />
+    <meta name="keywords"
+        content="Minecraft, serwery Minecraft, lista serwerów Minecraft, najlepsze serwery Minecraft, serwery survival, serwery creative, serwery PvP, serwery multiplayer, serwery premium, serwery non-premium, Minecraft serwery, serwery z modyfikacjami, serwery mini-games, serwery hardcore, serwery roleplay, Minecraft online, serwery z pluginami" />
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="https://mc-list.pl/img/logo3.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MC-List.pl" />
+    <meta name="robots" content="index, follow">
+
+    <base href="http://localhost:8080/">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/formElement.css">
+    <link rel="stylesheet" href="/css/manage/manageServer.css">
+    <link rel="stylesheet" href="/css/manage/manageSubserver.css">
+    <link rel="stylesheet" href="/css/fragment/manageMenu.css">
+
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
+
+    <script src="./js/modeManager.js" type="module" defer></script>
+    <script src="./js/versionManager.js" type="module" defer></script>
+    <script src="./js/manage/subserver/subserverManager.js" type="module" defer></script>
+</head>
+
+<body>
+    <div id="main-container">
+        <aside>
+            <div th:replace="~{fragment/manageMenu :: menuFragment}"></div>
+            <div class="divider-line-vertical">
+            </div>
+        </aside>
+
+        <section id="container">
+            <div id="subserver-container" class="center">
+                <h1 class="header">
+                    Tryby
+                </h1>
+
+                <div id="create-new-subserver-panel">
+                    <div class="title">Tworzenie nowego trybu</div>
+                    <div class="form-container center">
+                        <div class="row">
+                            <div class="input-area">
+                                <input id="subserver-name-input" type="text" maxlength="60"
+                                    placeholder="Nazwa trybu np. Survival 1.21" autocomplete="off">
+                                <div class="icon">
+                                    <i class="fa-solid fa-server"></i>
+                                </div>
+                                <div class="required">*</div>
+                            </div>
+
+                            <div class="input-area color-input-area">
+                                <input id="subserver-color-input" class="color-input" type="color" value="#ffffff"
+                                    autocomplete="off">
+                            </div>
+                            <div id="create-subserver-button" class="add-button">
+                                Stwórz
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-area-select">
+                                <div id="mode-list-panel" class="item-list-panel" style="display: none;">
+                                    <div class="item-list-wrapper scrollable scrollable-vertical">
+                                        <div class="item-list-container" id="mode-list-container">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-container">
+                                    <input id="mode-input" placeholder="Wybierz tryb serwera" type="text" maxlength="60"
+                                        autocomplete="off">
+                                    <div class="icon">
+                                        <i class="fa-solid fa-dice-d6"></i>
+                                    </div>
+                                </div>
+
+                                <div class="selected-item-wrapper scrollable-horizontal scrollable">
+                                    <div id="selected-mode-container"
+                                        class="selected-item-container scrollable-container">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-area-select">
+                                <div id="version-list-panel" class="item-list-panel" style="display: none;">
+                                    <span class="center">Wystarczy wybrać jedynie najnowszą i najstarszą wersję</span>
+                                    <div class="item-list-wrapper scrollable scrollable-vertical">
+                                        <div class="item-list-container" id="version-list-container">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-container">
+                                    <input id="version-input" placeholder="Wybierz wersje serwera" type="text"
+                                        maxlength="60" autocomplete="off">
+                                    <div class="icon">
+                                        <i class="fa-solid fa-bars"></i>
+                                    </div>
+                                </div>
+
+                                <div class="selected-item-wrapper scrollable-horizontal scrollable">
+                                    <div id="selected-version-container"
+                                        class="selected-item-container scrollable-container">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="create-subserver-error" class="error">
+                    </div>
+                </div>
+
+                <div id="subserver-wrapper">
+                    <div class="title">Tryby</div>
+
+                    <ul id="subserver-list-container" class="sortable-list-subserver">
+
+                    </ul>
+                </div>
+
+
+                <span class="error center" id="response-error"></span>
+                <div id="save-subserver-button" class="center action-button margin-50-150">
+                    Zapisz zmiany
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+<template id="subserver-template">
+    <li class="subserver item" draggable="true">
+        <div class="up-panel">
+            <div class="subserver-name-preview"></div>
+
+            <div class="right-panel">
+                <div class="click-to-edit">Kliknij, aby edytować</div>
+                <div class="remove-subserver-button"><i class="fa-solid fa-trash"></i></div>
+            </div>
+        </div>
+        <div class="down-panel">
+            <div class="tag-container">
+                <div class="tag mode-tag" style="display: none;">
+                    <div class="icon">
+                        <i class="fa-solid fa-dice-d6"></i>
+                    </div>
+                    <div class="content">
+
+                    </div>
+                </div>
+
+                <div class="tag version-tag" style="display: none;">
+                    <div class="icon">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <div class="content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</template>
+
+<script type="module" th:inline="javascript">
+    const serverId = /*[[${server.id}]]*/ 0;
+    const loadedSubservers = /*[[${server.subServers}]]*/[];
+    const sortedloadedSubservers = loadedSubservers.sort((a, b) => a.index - b.index);
+
+    const responseError = document.getElementById("response-error");
+
+    document.getElementById("save-subserver-button").addEventListener("click", () => {
+        saveSubserver();
+    });
+
+    import { loadSubservers, getSortedSubservers } from "./js/manage/subserver/subserverManager.js";
+    loadSubservers(sortedloadedSubservers);
+
+    async function saveSubserver() {
+        const dto = {
+            data: getSortedSubservers()
+        }
+        console.log(dto);
+        try {
+            const response = await fetch('/server/' + serverId + '/manage/subserver/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dto)
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(`Error: ${errorResponse.message}`);
+            }
+            else {
+                const responseJson = await response.json();
+
+                if (responseJson.status == "BAD_REQUEST") {
+                    responseError.innerHTML = responseJson.message;
+                }
+                else if (responseJson.status == "OK") {
+                    responseError.innerHTML = "Zmiany zostały zapisane";
+                }
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+</script>
+
+<script type="module">
+    //Responsible for sortable ranks
+    const sortableListRank = document.querySelector(".sortable-list-subserver");
+    const itemRanks = sortableListRank.querySelectorAll(".item");
+
+    const initSortableListRank = (e) => {
+        e.preventDefault();
+        const draggingItem = document.querySelector(".dragging");
+
+        let siblings = [...sortableListRank.querySelectorAll(".item:not(.dragging)")];
+
+        let nextSibling = siblings.find(sibling => {
+            const rect = sibling.getBoundingClientRect();
+            return e.clientY <= rect.top + rect.height / 2;
+        });
+
+        sortableListRank.insertBefore(draggingItem, nextSibling);
+    };
+
+    sortableListRank.addEventListener("dragover", initSortableListRank);
+    sortableListRank.addEventListener("dragenter", e => e.preventDefault());
+</script>
+
+</html>

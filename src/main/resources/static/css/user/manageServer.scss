@@ -1,0 +1,40 @@
+@import "../base";
+
+#server-wrapper {
+    width: 800px;
+
+    #server-container{
+        .server{
+            background-color: #ffffff1e;
+            border: 1px solid #7979798f;
+            backdrop-filter: blur(5px);
+
+            margin-top: 25px;
+            border-radius: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+
+            .server-ip {
+                font-weight: 800;
+                font-size: 1.2em;
+            }
+            .right-panel{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        .server:hover{
+            cursor: pointer;
+            background-color: #ffffff0c;
+        }
+    }
+
+    @media (max-width: 1100px) {
+        width: 100%;
+    }
+}

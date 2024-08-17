@@ -1,0 +1,103 @@
+footer {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 250px;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 2s;
+}
+footer .container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-around;
+  color: #c7c1c1;
+  z-index: 100;
+  padding: 50px 0;
+}
+footer .container .wrapper {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+footer .container .wrapper .logo-wrapper img {
+  width: 300px;
+  height: auto;
+}
+footer .container .wrapper nav {
+  display: flex;
+  gap: 100px;
+}
+footer .container .wrapper nav .footer-nav {
+  list-style-type: none;
+}
+footer .container .wrapper nav .footer-nav .footer-link {
+  padding: 5px;
+}
+footer .container .wrapper nav .footer-nav .footer-link:hover {
+  cursor: pointer;
+  color: #e2a258;
+}
+footer .container .footer-social-links {
+  font-size: 2em;
+  display: flex;
+  gap: 20px;
+}
+footer .container .footer-social-links .social:hover {
+  cursor: pointer;
+  color: #e2a258;
+}
+@media (max-width: 1200px) {
+  footer .container .wrapper {
+    gap: 40px;
+  }
+  footer .container .wrapper .logo-wrapper img {
+    width: 200px;
+  }
+}
+@media (max-width: 1000px) {
+  footer .container .wrapper {
+    gap: 30px;
+  }
+  footer .container .wrapper .logo-wrapper img {
+    width: 180px;
+  }
+  footer .container .wrapper nav {
+    gap: 40px;
+  }
+  footer .container .footer-social-links {
+    font-size: 1.8em;
+    gap: 10px;
+  }
+}
+@media (max-width: 800px) {
+  footer .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  footer .container .footer-social-links {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 600px) {
+  footer .container .wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+footer .footer-info-down {
+  width: 100%;
+  padding: 10px;
+  color: #9e9e9e;
+  text-align: center;
+}/*# sourceMappingURL=footer.css.map */

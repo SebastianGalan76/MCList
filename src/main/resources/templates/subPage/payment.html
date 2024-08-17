@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <base href="https://mc-list.pl/">
+</head>
+
+<body>
+    <form id="paymentForm" action="https://platnosc.hotpay.pl/" method="post">
+        <input type="hidden" name="SEKRET" th:value="${paymentRequest.secret}" />
+        <input type="hidden" name="KWOTA" th:value="${paymentRequest.amount}" />
+        <input type="hidden" name="NAZWA_USLUGI" th:value="${paymentRequest.serviceName}" />
+        <input type="hidden" name="ADRES_WWW" th:value="${paymentRequest.websiteAddress}" />
+        <input type="hidden" name="ID_ZAMOWIENIA" th:value="${paymentRequest.orderId}" />
+        <input type="hidden" name="EMAIL" th:value="${paymentRequest.email}" />
+        <input type="hidden" name="DANE_OSOBOWE" th:value="${paymentRequest.personalData}" />
+        <input type="hidden" name="HASH" th:value="${hash}" />
+        <button type="submit">DALEJ</button>
+    </form>
+
+    <script type="text/javascript">
+        document.getElementById("paymentForm").submit();
+    </script>
+</body>
+
+</html>

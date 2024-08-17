@@ -1,0 +1,44 @@
+@import "../base";
+
+#rule-container{
+    width: 800px;
+
+    margin-left: auto;
+    margin-right: auto;
+    
+    text-align: justify;
+
+    h1{
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        text-align: start;
+    }
+
+    h2{
+        margin-left: 20px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        display: block;
+        text-align: start;
+
+        @media (max-width: 550px){
+            margin-left: 5px;
+        }
+    }
+
+    li{
+        margin-top: 5px;
+    }
+
+    .link{
+        color: $color-theme;
+    }
+
+    @media (max-width: 850px){
+        width: 100%;
+        padding: 20px;
+
+        font-size: 0.8em;
+    }
+}

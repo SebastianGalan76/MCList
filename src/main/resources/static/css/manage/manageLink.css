@@ -1,0 +1,83 @@
+#link-container {
+  width: 800px;
+}
+#link-container #link-wrapper {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  padding: 20px 10px;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+#link-container #link-wrapper .title {
+  font-weight: 600;
+  font-size: 1.4em;
+}
+#link-container #link-list-container .link {
+  background-color: rgba(255, 255, 255, 0.1176470588);
+  border: 1px solid rgba(121, 121, 121, 0.5607843137);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  margin-top: 25px;
+  border-radius: 20px;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+#link-container #link-list-container .link .link-name-preview {
+  font-weight: 800;
+  font-size: 1.5em;
+}
+#link-container #link-list-container .link .right-panel {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+#link-container #link-list-container .link .right-panel .click-to-edit {
+  font-size: 0.9em;
+  color: #c7c7c7;
+}
+#link-container #link-list-container .link .right-panel .remove-link-button {
+  padding: 8px 10px;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: rgba(255, 0, 0, 0.26);
+  color: rgb(252, 99, 107);
+  border: 2px solid rgb(252, 99, 107);
+  border-radius: 10px;
+}
+#link-container #link-list-container .link .right-panel .remove-link-button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.664);
+}
+#link-container #link-list-container .selected {
+  background-color: #e2a258;
+}
+#link-container #link-list-container .link:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2470588235);
+}
+#link-container #create-new-link-panel {
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2588235294);
+  padding: 20px;
+  border-radius: 20px;
+}
+#link-container #create-new-link-panel .title {
+  font-size: 1.2em;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+#link-container #create-new-link-panel .form-container {
+  width: 100%;
+  gap: 10px;
+  display: flex;
+}
+@media (max-width: 1100px) {
+  #link-container {
+    width: 100%;
+  }
+}/*# sourceMappingURL=manageLink.css.map */

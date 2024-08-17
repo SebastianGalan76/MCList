@@ -1,0 +1,134 @@
+@import "../base";
+
+footer {
+    background-color: $color-dark;
+    width: 100%;
+
+    overflow: hidden;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 250px;
+    animation: fadeIn 1s ease-in-out forwards;
+    animation-delay: 2s;
+    
+    .container {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        justify-content: space-around;
+
+        color: #c7c1c1;
+        z-index: 100;
+        padding: 50px 0;
+
+        .wrapper {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+
+            .logo-wrapper {
+                img {
+                    width: 300px;
+                    height: auto;
+                }
+            }
+
+            nav {
+                display: flex;
+                gap: 100px;
+
+                .footer-nav {
+                    list-style-type: none;
+
+                    .footer-link {
+                        padding: 5px;
+                    }
+
+                    .footer-link:hover {
+                        cursor: pointer;
+                        color: $color-theme;
+                    }
+                }
+            }
+        }
+
+        .footer-social-links {
+            font-size: 2em;
+            display: flex;
+            gap: 20px;
+
+            .social:hover {
+                cursor: pointer;
+                color: $color-theme;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .wrapper {
+                gap: 40px;
+
+                .logo-wrapper {
+                    img {
+                        width: 200px;
+                    }
+                }
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .wrapper {
+                gap: 30px;
+
+                .logo-wrapper {
+                    img {
+                        width: 180px;
+                    }
+                }
+
+                nav {
+                    gap: 40px;
+                }
+            }
+
+            .footer-social-links {
+                font-size: 1.8em;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 800px) {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            .footer-social-links {
+                margin-bottom: 20px;
+            }
+        }
+        @media (max-width: 600px) {
+            .wrapper {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                gap: 10px;
+            }
+        }
+    }
+
+    .footer-info-down {
+        width: 100%;
+        padding: 10px;
+
+        color: #9e9e9e;
+        text-align: center;
+    }
+}

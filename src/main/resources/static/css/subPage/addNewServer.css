@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+#container {
+  width: 800px;
+  padding: 100px;
+  background-color: rgba(255, 255, 255, 0.0549019608);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+}
+#container .header {
+  text-align: center;
+  font-weight: 800;
+  font-size: 2em;
+}
+#container #form-container {
+  flex-grow: 1;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+}
+#container #form-container #loading-animation {
+  margin-left: auto;
+  margin-right: auto;
+}
+#container #form-container #server-status-response-error {
+  border: 2px solid rgb(252, 99, 107);
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  text-align: center;
+}
+#container #form-container #server-status-response-error .link {
+  color: #e2a258;
+  font-weight: 600;
+}
+@media (max-width: 600px) {
+  #container #form-container #server-status-response-error {
+    font-size: 0.8em;
+  }
+}
+#container .footer {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#container .footer .submit-button {
+  width: 100%;
+  background-color: #e2a258;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+#container .footer .submit-button:hover {
+  background-color: #ce8e45;
+  cursor: pointer;
+}
+@media (max-height: 800px) {
+  #container {
+    padding: 50px 100px;
+  }
+  #container #form-container {
+    margin-top: 30px;
+  }
+  #container .footer {
+    margin-top: 30px;
+  }
+}
+@media (max-width: 800px) {
+  #container {
+    width: 90%;
+    padding: 20px;
+  }
+}/*# sourceMappingURL=addNewServer.css.map */

@@ -1,0 +1,57 @@
+#container {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+#container .endpoint-container {
+  margin-top: 40px;
+}
+#container .endpoint-container .description {
+  font-style: italic;
+  padding: 10px 0;
+}
+#container .endpoint-container .endpoint {
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  padding: 10px;
+  font-weight: 500;
+}
+#container .endpoint-container .endpoint .method {
+  color: #e2a258;
+  font-weight: 800;
+}
+#container .endpoint-container .values {
+  margin-top: 10px;
+  color: #d8d8d8;
+}
+#container .endpoint-container .values .value {
+  font-style: italic;
+  padding: 5px 0;
+}
+#container .endpoint-container .response {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  border-radius: 10px;
+  margin-top: 10px;
+}
+#container .endpoint-container .response .status {
+  font-weight: 700;
+}
+#container .endpoint-container .response code .fields {
+  margin-left: 24px;
+}
+#container .endpoint-container .response code .fields .comment {
+  font-style: italic;
+  color: #adadad;
+}
+@media (max-width: 850px) {
+  #container {
+    width: 100%;
+    padding: 20px;
+    font-size: 0.8em;
+  }
+}
+#container .link {
+  color: #e2a258;
+  font-weight: 700;
+}/*# sourceMappingURL=rewards.css.map */

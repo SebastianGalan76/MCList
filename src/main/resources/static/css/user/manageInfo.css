@@ -1,0 +1,41 @@
+#server-wrapper {
+  width: 800px;
+}
+#server-wrapper .basic-data {
+  display: flex;
+  gap: 10px;
+}
+#server-wrapper #password-panel {
+  margin-top: 35px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2588235294);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 15px;
+}
+#server-wrapper #password-panel .title {
+  font-weight: 700;
+}
+#server-wrapper #password-panel .update-button {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 15px 30px;
+}
+#server-wrapper .update-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  background-color: #e2a258;
+  border-radius: 10px;
+}
+#server-wrapper .update-button:hover {
+  cursor: pointer;
+  background-color: #ce8e45;
+}
+@media (max-width: 1100px) {
+  #server-wrapper {
+    width: 100%;
+  }
+}/*# sourceMappingURL=manageInfo.css.map */

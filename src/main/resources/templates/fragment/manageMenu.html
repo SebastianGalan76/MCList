@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+
+<body>
+    <div th:fragment="menuFragment">
+        <div id="menu-button" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div id="aside-menu">
+            <div class="user-panel">
+                <span class="login" th:text="${user.login}"></span>
+                <span class="role" th:text="${role}"></span>
+            </div>
+
+            <a th:href="'/server/'+ ${server.ip}">
+                <div class="server-page">
+                    Strona serwera
+                </div>
+            </a>
+
+            <div class="menu">
+                <div class="title">MENU</div>
+                <a th:href="'/server/' + ${server.id} + '/manage/info'"
+                    th:if="${role != null and role.value >= T(com.coresaken.mcserverlist.database.model.server.ServerUserRole.Role).MODERATOR.value}">
+                    <li>Podstawowe informacje</li>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage/description'"
+                    th:if="${role != null and role.value >= T(com.coresaken.mcserverlist.database.model.server.ServerUserRole.Role).HELPER.value}">
+                    <li>Opis serwera</li>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage/banner'"
+                    th:if="${role != null and role.value >= T(com.coresaken.mcserverlist.database.model.server.ServerUserRole.Role).MODERATOR.value}">
+                    <li>Baner</li>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage/subserver'"
+                    th:if="${role != null and role.value >= T(com.coresaken.mcserverlist.database.model.server.ServerUserRole.Role).MODERATOR.value}">
+                    <li>Tryby</li>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage/link'"
+                    th:if="${role != null and role.value >= T(com.coresaken.mcserverlist.database.model.server.ServerUserRole.Role).MODERATOR.value}">
+                    <li>Linki</li>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage/staff'"
+                    th:if="${role != null and role.value >= T(com.coresaken.mcserverlist.database.model.server.ServerUserRole.Role).HELPER.value}">
+                    <li>Administracja</li>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage/role'"
+                    th:if="${role != null and role.value >= T(com.coresaken.mcserverlist.database.model.server.ServerUserRole.Role).ADMINISTRATOR.value}">
+                    <li>Uprawnienia</li>
+                </a>
+                <a th:href="'/server/' + ${server.id} + '/manage/delete'"
+                    th:if="${role != null and role.value >= T(com.coresaken.mcserverlist.database.model.server.ServerUserRole.Role).OWNER.value}">
+                    <li>Usuń serwer</li>
+                </a>
+            </div>
+        </div>
+
+        <script>
+            const rightPanelMenu = document.getElementById('aside-menu');
+
+            function handleResize() {
+                if (window.innerWidth < 600) {
+                    rightPanelMenu.classList.remove('active');
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize();
+
+            function toggleMenu() {
+                rightPanelMenu.classList.toggle('active');
+            }
+        </script>
+    </div>
+</body>
+</html>
